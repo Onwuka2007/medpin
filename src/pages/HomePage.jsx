@@ -1,13 +1,34 @@
-import SiteHeader from '../components/layout/SiteHeader.jsx'
+import { useState } from 'react'
+import AssistantLauncher from '../components/assistant/AssistantLauncher.jsx'
+import AssistantSheet from '../components/assistant/AssistantSheet.jsx'
 import HeroSection from '../components/sections/HeroSection.jsx'
 
 function HomePage() {
+  const [assistantOpen, setAssistantOpen] = useState(false)
+  const [assistantInitialAction, setAssistantInitialAction] = useState(null)
+
+  function openAssistant(actionId = null) {
+    setAssistantInitialAction(actionId)
+    setAssistantOpen(true)
+  }
+
+  function closeAssistant() {
+    setAssistantOpen(false)
+    setAssistantInitialAction(null)
+  }
+
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#f4f7fb_0%,#f8fbff_52%,#ffffff_100%)] text-slate-900">
-      <div className="absolute inset-x-0 top-0 -z-0 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.18),_transparent_38%),radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_30%)]" />
-      <SiteHeader />
-      <HeroSection />
-    </main>
+    <>
+      <main className="min-h-screen bg-[#f8fbf8] text-slate-900">
+        <HeroSection onOpenAssistant={openAssistant} />
+      </main>
+      <AssistantLauncher onOpen={() => openAssistant()} />
+      <AssistantSheet
+        open={assistantOpen}
+        onClose={closeAssistant}
+        initialActionId={assistantInitialAction}
+      />
+    </>
   )
 }
 

@@ -1,0 +1,42 @@
+export const mockSearchSuggestions = [
+  {
+    id: 'search-paracetamol',
+    query: 'paracetamol',
+    correctedQuery: 'Paracetamol',
+    suggestionType: 'exact_match',
+    matchedDrugIds: ['drug-paracetamol-500-tablet'],
+    relatedQueries: ['Panadol', 'Ibuprofen'],
+  },
+  {
+    id: 'search-paracitamol',
+    query: 'paracitamol',
+    correctedQuery: 'Paracetamol',
+    suggestionType: 'typo_correction',
+    matchedDrugIds: ['drug-paracetamol-500-tablet'],
+    relatedQueries: ['Panadol', 'PCM'],
+  },
+  {
+    id: 'search-ventaline',
+    query: 'ventaline',
+    correctedQuery: 'Ventolin',
+    suggestionType: 'typo_correction',
+    matchedDrugIds: ['drug-ventolin-inhaler', 'drug-salbutamol-inhaler-generic'],
+    relatedQueries: ['Salbutamol inhaler'],
+  },
+  {
+    id: 'search-malaria-drug',
+    query: 'malaria drug',
+    correctedQuery: null,
+    suggestionType: 'category_match',
+    matchedDrugIds: ['drug-amatem-softgel', 'drug-coartem-20-120-tablet'],
+    relatedQueries: ['Amatem', 'Coartem'],
+  },
+  {
+    id: 'search-postiner',
+    query: 'postiner',
+    correctedQuery: 'Postinor-2',
+    suggestionType: 'typo_correction',
+    matchedDrugIds: ['drug-postinor-2-tablet', 'drug-levonorgestrel-1-5mg-tablet'],
+    relatedQueries: ['Emergency pill', 'Levonorgestrel'],
+  },
+]

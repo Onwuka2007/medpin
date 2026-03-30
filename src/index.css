@@ -1,10 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Cream+Soda&family=DM+Sans:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 :root {
-  font-family: 'Instrument Sans', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   color: #0f172a;
   background: #f8fbff;
+  --color-background: #f8fbf8;
+  --color-foreground: #163c33;
+  --color-primary: #1f5649;
+  --color-primary-hover: #163f35;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #ecf6f0;
+  --color-secondary-foreground: #1f5649;
+  --color-border: #dbe8e0;
+  --color-input: #e3ece6;
+  --color-ring: rgba(184, 207, 194, 0.55);
+  --color-surface: #ffffff;
+  --color-surface-soft: #f4f9f6;
+  --color-muted: #a0afa8;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,9 +31,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(circle at top left, rgba(125, 211, 252, 0.2), transparent 22%),
-    linear-gradient(180deg, #f4f7fb 0%, #f8fbff 52%, #ffffff 100%);
+  background: var(--color-background);
 }
 
 * {

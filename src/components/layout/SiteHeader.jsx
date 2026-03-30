@@ -7,7 +7,7 @@ function SiteHeader() {
             MP
           </div>
           <div>
-            <p className="font-['Space_Grotesk',sans-serif] text-lg font-semibold tracking-tight text-slate-950">
+            <p className="text-lg font-semibold tracking-tight text-slate-950">
               MedPin
             </p>
             <p className="text-sm text-slate-500">Pharmacy finder for faster access</p>
