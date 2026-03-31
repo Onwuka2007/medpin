@@ -7,7 +7,7 @@ import HeroMapPin from "../ui/Pin.jsx";
 
 function HeroSection({ onOpenAssistant }) {
   return (
-    <section className="relative z-10 overflow-hidden pb-20 pt-3 lg:pb-28">
+    <section className="relative z-20 overflow-visible pb-16 pt-3 lg:pb-20">
       <div className="absolute inset-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
@@ -20,13 +20,13 @@ function HeroSection({ onOpenAssistant }) {
         <HeroMapPin key={pin.id} icon={pin.icon} className={pin.className} />
       ))}
 
-      <div className="relative mx-auto max-w-7xl px-6 pt-22 sm:px-8 sm:pt-24 lg:px-10 lg:pt-26">
+      <div className="relative mx-auto max-w-7xl px-4 pt-22 sm:px-8 sm:pt-24 lg:px-10 lg:pt-26">
         <HeroNavbar onOpenAssistant={onOpenAssistant} />
 
         <div className="mx-auto flex max-w-232 flex-col items-center pb-8 pt-12 text-center sm:pt-16 lg:pb-16 lg:pt-18">
           <CommunityBadge />
 
-          <h1 className="mt-5 max-w-[850px] w-full text-[2.5rem] font-semibold leading-[1.06] tracking-[-0.05em] text-[#1f5649] sm:text-[3.75rem] lg:text-[4.75rem]">
+          <h1 className="mt-5 max-w-[850px] w-full text-[2.3rem] font-semibold md:leading-[1.06] tracking-[-0.05em] text-[#1f5649] sm:text-[3.75rem] lg:text-[4.75rem]">
             {heroContent.title}.
           </h1>
 

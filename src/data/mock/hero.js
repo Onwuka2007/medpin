@@ -13,4 +13,33 @@ export const heroMapPins = [
   { id: "pin-4", icon: "pill", className: "right-[7%] top-[62%]" },
 ];
 
-export const heroQuickSearches = ['Paracetamol', 'Ventolin', 'Amatem', 'Postinor', 'ORS']
+export const heroFloatingCards = [
+  {
+    id: "hero-card-1",
+    title: "Nearby stock found",
+    text: "Paracetamol is available at 4 pharmacies around Yaba.",
+    className:
+      "left-0 top-[10rem] hidden max-w-[15rem] xl:block",
+  },
+  {
+    id: "hero-card-2",
+    title: "Fastest option",
+    text: "HealthPlus Pharmacy is 6 mins away and open now.",
+    className:
+      "right-2 top-[14rem] hidden max-w-[15rem] xl:block",
+  },
+  {
+    id: "hero-card-3",
+    title: "Alternative available",
+    text: "A similar salbutamol inhaler is available if Ventolin is unavailable.",
+    className:
+      "left-[6%] bottom-[8rem] hidden max-w-[16rem] xl:block",
+  },
+  {
+    id: "hero-card-4",
+    title: "Price signal",
+    text: "Compare nearby prices before heading out.",
+    className:
+      "right-[8%] bottom-[10rem] hidden max-w-[14rem] xl:block",
+  },
+];
