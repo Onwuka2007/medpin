@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage.jsx'
 import SearchPage from './pages/SearchPage.jsx'
 
-function App() {
+export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -11,4 +11,3 @@ function App() {
   )
 }
 
-export default App
