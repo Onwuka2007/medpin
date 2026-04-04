@@ -1,5 +1,11 @@
-import { ArrowUpRight, CircleCheckBig, Navigation, Phone } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import {
+  ArrowUpRight,
+  ChevronLeft,
+  CircleCheckBig,
+  Navigation,
+  Phone,
+} from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import PharmacyMap from "../map/PharmacyMap.jsx";
 import Logo from "../ui/Logo.jsx";
 import { Button } from "../ui/button.jsx";
@@ -77,7 +83,11 @@ function PharmacyRow({ item, primary = false }) {
           variant="ghost"
           className="h-auto gap-1 bg-(--color-secondary) px-2.5 py-1 text-xs font-medium text-(--color-primary) hover:bg-[#dceee5]"
         >
-          <a href={getGoogleMapsSearchUrl(item)} target="_blank" rel="noreferrer">
+          <a
+            href={getGoogleMapsSearchUrl(item)}
+            target="_blank"
+            rel="noreferrer"
+          >
             <Navigation className="h-3.5 w-3.5" />
             Open map
           </a>
@@ -115,7 +125,7 @@ function AlternativeSearchRow({ alternative, userLocation }) {
           state: { userLocation },
         })
       }
-      className="group flex w-full items-start justify-between gap-3 rounded-[1.25rem] border border-[rgba(31,86,73,0.1)] bg-white px-4 py-3 text-left transition hover:border-[rgba(31,86,73,0.2)] hover:bg-[#fbfdfb]"
+      className="group cursor-pointer flex w-full items-start justify-between gap-3 rounded-[1.25rem] border border-[rgba(31,86,73,0.1)] bg-white px-4 py-3 text-left transition hover:border-[rgba(31,86,73,0.2)] hover:bg-[#fbfdfb]"
     >
       <span className="min-w-0">
         <span className="block text-sm font-semibold text-(--color-foreground)">
@@ -138,11 +148,58 @@ function AlternativeSearchRow({ alternative, userLocation }) {
 function SearchResultCard({ result, userLocation }) {
   const {
     drug,
-    closestPharmacyResult,
+    closestPharmacyResult: rawClosest,
     otherPharmacyResults,
     mapPharmacyResults,
     alternatives,
   } = result;
+
+  const closestPharmacyResult = rawClosest;
+  const hasClosest = Boolean(rawClosest);
+
+  if (!hasClosest) {
+    return (
+      <div className="relative min-h-screen overflow-hidden bg-[#ffffff]">
+        <div className="relative z-20 border-b border-[rgba(31,86,73,0.08)] bg-white/92 backdrop-blur-xl">
+          <div className="flex flex-col gap-4 px-4 py-4 sm:px-6 lg:px-8">
+            <div className="flex justify-center">
+              <Logo textClassName="text-xl sm:text-2xl" />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex h-[60vh] max-w-md flex-col items-center relative mx-auto justify-center px-4">
+          {/* back button */}
+          <Link
+            to="/"
+            className="absolute z-10 top-10 left-10 bg-(--color-primary)  rounded-full p-2"
+          >
+            <ChevronLeft size={20}  className="text-(--color-secondary)"/>
+          </Link>
+          <p className="text-center text-sm text-[#648277]">
+            No nearby pharmacies have this drug in stock.
+          </p>
+
+          {alternatives.length > 0 && (
+            <div className="mt-8 ">
+              <p className="text-center text-sm text-[#648277]">
+                Try one of these alternatives:
+              </p>
+              <div className="mt-4 space-y-2">
+                {alternatives.map((alt) => (
+                  <AlternativeSearchRow
+                    key={alt.id}
+                    alternative={alt}
+                    userLocation={userLocation}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#ffffff]">
@@ -289,7 +346,10 @@ function SearchResultCard({ result, userLocation }) {
           </InfoSection>
 
           {alternatives.length > 0 && (
-            <InfoSection title="Can't find this? Try these alternatives" tone="warm">
+            <InfoSection
+              title="Can't find this? Try these alternatives"
+              tone="warm"
+            >
               <p className="mb-4 text-sm leading-6 text-[#648277]">
                 These options come from our medicine graph (linked to{" "}
                 <span className="font-medium text-(--color-foreground)">

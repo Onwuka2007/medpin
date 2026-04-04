@@ -1,23 +1,85 @@
-import { useMemo } from "react"
-import { MapPinOff } from "lucide-react"
-import { useLocation, useSearchParams } from "react-router-dom"
-import SearchResultCard from "../components/search/SearchResultCard.jsx"
-import { loadStoredUserLocation } from "../lib/searchStorage.js"
-import { searchMockData } from "../services/searchService.js"
+import { useEffect, useState } from "react";
+import { LoaderCircle, MapPinOff } from "lucide-react";
+import { useLocation, useSearchParams } from "react-router-dom";
+import SearchResultCard from "../components/search/SearchResultCard.jsx";
+import { loadStoredUserLocation } from "../lib/searchStorage.js";
+import { getSmartSuggestions } from "../services/aiServices.js";
+import {
+  buildDrugCatalogForAi,
+  buildResultsFromDrugIds,
+  searchDrugsFallback,
+} from "../services/searchService.js";
 
 export default function SearchPage() {
-  const [searchParams] = useSearchParams()
-  const location = useLocation()
-  const query = searchParams.get("q") ?? ""
-  const userLocation =
-    location.state?.userLocation ?? loadStoredUserLocation()
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const query = searchParams.get("q") ?? "";
+  const userLocation = location.state?.userLocation ?? loadStoredUserLocation();
 
-  const searchResult = useMemo(
-    () => searchMockData(query, userLocation),
-    [query, userLocation],
-  )
+  const [searchState, setSearchState] = useState({
+    status: "idle",
+    drugResults: [],
+    usedFallback: false,
+  });
 
-  const activeResult = searchResult.drugResults[0] ?? null
+  useEffect(() => {
+    if (!query.trim() || !userLocation) {
+      setSearchState({
+        status: "idle",
+        drugResults: [],
+        usedFallback: false,
+      });
+      return;
+    }
+
+    let cancelled = false;
+
+    setSearchState((prev) => ({
+      ...prev,
+      status: "loading",
+    }));
+    (async () => {
+      const catalog = buildDrugCatalogForAi();
+      const ai = await getSmartSuggestions(query.trim(), catalog);
+
+      if (cancelled) return;
+
+      const ids = ai?.suggestions?.map((s) => s.id) ?? [];
+      let drugResults = buildResultsFromDrugIds(ids, userLocation);
+
+      if (drugResults.length === 0) {
+        drugResults = searchDrugsFallback(query, userLocation).drugResults;
+        setSearchState({
+          status: "ready",
+          drugResults,
+          usedFallback: true,
+        });
+        return;
+      }
+
+      setSearchState({
+        status: "ready",
+        drugResults,
+        usedFallback: false,
+      });
+    })().catch(() => {
+      if (cancelled) return;
+      setSearchState({
+        status: "ready",
+        drugResults: searchDrugsFallback(query, userLocation).drugResults,
+        usedFallback: true,
+      });
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [query, userLocation]);
+
+  const activeResult = searchState.drugResults[0] ?? null;
+  const isLoading = Boolean(
+    userLocation && query.trim() && searchState.status === "loading",
+  );
 
   return (
     <main className="min-h-screen bg-white text-slate-900">
@@ -31,11 +93,27 @@ export default function SearchPage() {
               Location is required
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#648277]">
-              Turn on location access from the home search to find pharmacies near
-              you, or run a new search so we can save your location in this
+              Turn on location access from the home search to find pharmacies
+              near you, or run a new search so we can save your location in this
               browser.
             </p>
           </div>
+        </section>
+      ) : isLoading ? (
+        <section className="flex min-h-[50vh] flex-col items-center justify-center px-4 py-16">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-(--color-secondary) text-(--color-primary)">
+            <LoaderCircle className="h-7 w-7 animate-spin" />
+          </div>
+          <p className="mt-6 text-lg font-semibold tracking-[-0.03em] text-(--color-foreground)">
+            AI is Consulting our medical catalog...
+          </p>
+          <p className="mx-auto mt-2 max-w-md text-center text-sm leading-7 text-[#648277]">
+            Checking availability for{" "}
+            <span className="font-medium text-slate-900 italic">
+              "{query.trim()}"
+            </span>{" "}
+            at pharmacies near you.
+          </p>
         </section>
       ) : activeResult ? (
         <SearchResultCard result={activeResult} userLocation={userLocation} />
@@ -46,12 +124,13 @@ export default function SearchPage() {
               No results nearby yet
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#648277]">
-              No partner pharmacy near your current location is stocking that
-              drug.
+              {searchState.usedFallback
+                ? "No partner pharmacy near your current location is stocking a matching drug in our catalog."
+                : "Try a different spelling or search for the generic name."}
             </p>
           </div>
         </section>
       )}
     </main>
-  )
+  );
 }
