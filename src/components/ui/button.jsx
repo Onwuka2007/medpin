@@ -8,9 +8,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "border border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-foreground)] shadow-[0_14px_30px_rgba(31,86,73,0.16)] hover:bg-[var(--color-primary-hover)]",
+          "medpin-btn-default border shadow-[0_14px_30px_rgba(31,86,73,0.16)]",
         ghost:
-          "bg-transparent text-[var(--color-foreground)] hover:bg-[var(--color-surface-soft)]",
+          "medpin-btn-ghost",
       },
       size: {
         default: "h-11 rounded-full px-5 text-sm font-semibold",

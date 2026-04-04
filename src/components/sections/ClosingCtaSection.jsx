@@ -1,8 +1,10 @@
+import { Button } from "../ui/button.jsx"
+
 function ClosingCtaSection() {
   return (
-    <section className="bg-white px-6 pb-12 pt-6 sm:px-8 lg:px-10">
+    <section className="bg-white px-3 pb-12 pt-6 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-7xl">
-        <div className="overflow-hidden rounded-[2rem] border border-[rgba(31,86,73,0.08)] bg-[linear-gradient(135deg,#1f5649_0%,#173f36_48%,#102a23_100%)] px-6 py-8 text-white shadow-[0_24px_60px_rgba(31,86,73,0.16)] sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+        <div className="overflow-hidden rounded-4xl border border-[rgba(31,86,73,0.08)] bg-[linear-gradient(135deg,#1f5649_0%,#173f36_48%,#102a23_100%)] px-6 py-8 text-white shadow-[0_24px_60px_rgba(31,86,73,0.16)] sm:px-8 sm:py-10 lg:px-10 lg:py-12">
           <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.14em] text-white/68">
@@ -18,18 +20,18 @@ function ClosingCtaSection() {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-              <button
-                type="button"
-                className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-[var(--color-primary)] transition hover:bg-[var(--color-surface-soft)]"
+              <Button
+                asChild
+                variant="default"
               >
-                Find a drug
-              </button>
-              <button
+                <a href="#find-drug">Find a drug</a>
+              </Button>
+              <Button
                 type="button"
-                className="rounded-full border border-white/18 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/16"
+                variant="ghost"
               >
                 Partner with MedPin
-              </button>
+              </Button>
             </div>
           </div>
         </div>

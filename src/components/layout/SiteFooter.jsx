@@ -52,7 +52,7 @@ function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 border-t border-[var(--color-border)] pt-5 text-sm text-[#789088] sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-3 border-t border-(--color-border) pt-5 text-sm text-[#789088] sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; 2026 MedPin. All rights reserved.</p>
         </div>
       </div>

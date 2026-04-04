@@ -56,3 +56,22 @@ a {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.medpin-btn-default {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+.medpin-btn-default:hover {
+  background: var(--color-primary-hover);
+}
+
+.medpin-btn-ghost {
+  background: white;
+  color: var(--color-foreground);
+}
+
+.medpin-btn-ghost:hover {
+  background: var(--color-surface-soft);
+}

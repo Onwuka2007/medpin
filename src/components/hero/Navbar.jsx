@@ -16,6 +16,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu.jsx";
+import { Button } from "../ui/button.jsx";
+import { Link } from "react-router-dom";
 
 function Navbar({ onOpenAssistant }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -45,6 +47,9 @@ function Navbar({ onOpenAssistant }) {
           <a href="#support" className="transition hover:text-[#1f5649]">
             Support
           </a>
+          <Link to="/partners" className="transition hover:text-[#1f5649]">
+            Partner with us
+          </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
@@ -60,16 +65,22 @@ function Navbar({ onOpenAssistant }) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-72">
               <DropdownMenuLabel>Assistant tools</DropdownMenuLabel>
-              <DropdownMenuItem onSelect={() => onOpenAssistant?.("scan-prescription")}>
+              <DropdownMenuItem
+                onSelect={() => onOpenAssistant?.("scan-prescription")}
+              >
                 <FileSearch className="h-4.5 w-4.5 text-(--color-primary)" />
                 <div className="flex min-w-0 flex-col">
-                  <span className="font-medium">Scan doctor&apos;s scribble</span>
+                  <span className="font-medium">
+                    Scan doctor&apos;s scribble
+                  </span>
                   <span className="text-xs text-[#6c877e]">
                     Upload a prescription photo and extract the drug names.
                   </span>
                 </div>
               </DropdownMenuItem>
-              <DropdownMenuItem onSelect={() => onOpenAssistant?.("scan-drug-pack")}>
+              <DropdownMenuItem
+                onSelect={() => onOpenAssistant?.("scan-drug-pack")}
+              >
                 <PackageSearch className="h-4.5 w-4.5 text-(--color-primary)" />
                 <div className="flex min-w-0 flex-col">
                   <span className="font-medium">Scan drug pack</span>
@@ -93,24 +104,18 @@ function Navbar({ onOpenAssistant }) {
         </div>
 
         <div className="hidden items-center gap-6 lg:flex">
-          <button className="text-[14px] font-medium text-[#3b6458] transition hover:text-[#1f5649] cursor-pointer">
+          <button className="cursor-pointer text-[14px] font-medium text-[#3b6458] transition hover:text-[#1f5649]">
             Create Account
           </button>
-          <button
-            type="button"
-            className="rounded-full bg-[#1f5649] px-5 py-2 text-xs font-medium text-white transition hover:bg-[#173f36] cursor-pointer"
-          >
-            Find a drug
-          </button>
+          <Button asChild className="h-10 px-5 text-xs font-medium cursor-pointer">
+            <a href="#find-drug">Find a drug</a>
+          </Button>
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <button
-            type="button"
-            className="rounded-full bg-[#1f5649] px-3.5 py-2 text-[11px] font-medium text-white transition hover:bg-[#173f36] sm:px-4 sm:text-xs"
-          >
-            Search
-          </button>
+          <Button asChild className="h-10 px-3.5 text-[11px] font-medium sm:px-4 sm:text-xs">
+            <a href="#find-drug">Search</a>
+          </Button>
           <button
             type="button"
             onClick={() => setMobileMenuOpen((current) => !current)}
@@ -118,7 +123,11 @@ function Navbar({ onOpenAssistant }) {
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
         </div>
       </div>
