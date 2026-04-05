@@ -1,6 +1,6 @@
 export const mockPharmacies = [
   {
-    id: 'pharm-healthplus-yaba',
+    id: 'pharm-safeway-ajao',
     slug: 'healthplus-yaba',
     name: 'HealthPlus Pharmacy',
     type: 'Retail pharmacy',
@@ -10,7 +10,7 @@ export const mockPharmacies = [
     address: 'Commercial Avenue, Sabo Yaba, Lagos',
     landmark: 'Near UNILAG main gate',
     locationSummary: 'Near UNILAG main gate, Sabo Yaba',
-    coordinates: { lat: 6.5144, lng: 3.3763 },
+    coordinates: { lat: 6.548188217284591, lng:  3.3267932657784653 },
     phone: '+234 803 111 2045',
     whatsapp: '+234 803 111 2045',
     email: 'yaba@healthplus.mock',

@@ -1,7 +1,7 @@
 export const mockInventory = [
   {
     id: 'inventory-001',
-    pharmacyId: 'pharm-healthplus-yaba',
+    pharmacyId: 'pharm-safeway-ajao',
     drugId: 'drug-paracetamol-500-tablet',
     status: 'in_stock',
     quantity: 64,
@@ -15,7 +15,7 @@ export const mockInventory = [
   },
   {
     id: 'inventory-002',
-    pharmacyId: 'pharm-healthplus-yaba',
+    pharmacyId: 'pharm-safeway-ajao',
     drugId: 'drug-ventolin-inhaler',
     status: 'low_stock',
     quantity: 4,
@@ -29,7 +29,7 @@ export const mockInventory = [
   },
   {
     id: 'inventory-003',
-    pharmacyId: 'pharm-healthplus-yaba',
+    pharmacyId: 'pharm-safeway-ajao',
     drugId: 'drug-amatem-softgel',
     status: 'in_stock',
     quantity: 22,
@@ -267,7 +267,7 @@ export const mockInventory = [
   },
   {
     id: 'inventory-020',
-    pharmacyId: 'pharm-healthplus-yaba',
+    pharmacyId: 'pharm-safeway-ajao',
     drugId: 'drug-ors-sachet',
     status: 'in_stock',
     quantity: 28,

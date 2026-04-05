@@ -193,4 +193,3 @@ export function searchDrugsFallback(rawQuery, userLocation = null) {
     drugResults: uniqueDrugs.map((drug) => buildDrugResult(drug, userLocation)),
   }
 }
-
