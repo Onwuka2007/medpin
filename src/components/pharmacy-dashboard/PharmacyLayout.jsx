@@ -6,8 +6,9 @@ import {
   Settings,
   Bell,
 } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
-const PharmacyLayout = ({ children, pharmacyName = "MedPlus Ikeja" }) => {
+const PharmacyLayout = ({ children, pharmacyName = "Alpha Pharmacy" }) => {
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans text-slate-900">
       {/* 1. Accessible Skip Link */}
@@ -34,11 +35,16 @@ const PharmacyLayout = ({ children, pharmacyName = "MedPlus Ikeja" }) => {
           <NavItem
             icon={<LayoutDashboard size={20} />}
             label="Overview"
-            active
+            to="/pharmacy/dashboard"
+            end
           />
-          <NavItem icon={<Package size={20} />} label="Inventory" />
-          <NavItem icon={<BarChart3 size={20} />} label="Demand AI" />
-          <NavItem icon={<Settings size={20} />} label="Settings" />
+          <NavItem
+            icon={<Package size={20} />}
+            label="Inventory"
+            to="/pharmacy/dashboard/inventory"
+          />
+          <NavItem icon={<BarChart3 size={20} />} label="Demand AI" to="#" />
+          <NavItem icon={<Settings size={20} />} label="Settings" to="#" />
         </nav>
       </aside>
 
@@ -72,19 +78,32 @@ const PharmacyLayout = ({ children, pharmacyName = "MedPlus Ikeja" }) => {
 };
 
 // Helper Nav Component
-const NavItem = ({ icon, label, active = false }) => (
-  <a
-    href="#"
-    className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-      active
-        ? "bg-emerald-50 text-emerald-700"
-        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-    }`}
-    aria-current={active ? "page" : undefined}
-  >
-    {icon}
-    {label}
-  </a>
-);
+const NavItem = ({ icon, label, to, end = false }) => {
+  if (to === "#") {
+    return (
+      <span className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-400">
+        {icon}
+        {label}
+      </span>
+    );
+  }
+
+  return (
+    <NavLink
+      to={to}
+      end={end}
+      className={({ isActive }) =>
+        `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+          isActive
+            ? "bg-emerald-50 text-emerald-700"
+            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+        }`
+      }
+    >
+      {icon}
+      {label}
+    </NavLink>
+  );
+};
 
 export default PharmacyLayout;

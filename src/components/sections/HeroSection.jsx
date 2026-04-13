@@ -4,6 +4,7 @@ import HeroNavbar from "../hero/Navbar.jsx";
 import HeroSearch from "../hero/DrugSearch.jsx";
 import CommunityBadge from "../ui/MarkIcon.jsx";
 import HeroMapPin from "../ui/Pin.jsx";
+import DrugSearch from "../hero/DrugSearch.jsx";
 
 function HeroSection({ onOpenAssistant }) {
   return (
@@ -34,7 +35,7 @@ function HeroSection({ onOpenAssistant }) {
             {heroContent.description}
           </p>
 
-          <HeroSearch />
+          <DrugSearch />
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#56756a]">
             {heroContent.ctas.map((item, index) => (
