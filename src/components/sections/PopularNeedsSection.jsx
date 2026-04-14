@@ -39,7 +39,7 @@ const featureItems = [
 
 function PopularNeedsSection() {
   return (
-    <section className="bg-white px-6 py-20 sm:px-8 sm:py-24 lg:px-30 lg:py-28">
+    <section id="how-it-works" className="bg-white px-6 py-20 sm:px-8 sm:py-24 lg:px-30 lg:py-28">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#7a938a]">

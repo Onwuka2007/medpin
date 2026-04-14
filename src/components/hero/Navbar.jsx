@@ -8,6 +8,7 @@ import {
   X,
 } from "lucide-react";
 import Logo from "../ui/Logo.jsx";
+import { Link } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +18,6 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu.jsx";
 import { Button } from "../ui/button.jsx";
-import { Link } from "react-router-dom";
 
 function Navbar({ onOpenAssistant }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -34,20 +34,15 @@ function Navbar({ onOpenAssistant }) {
           <Logo />
         </div>
 
+        {/* Desktop nav */}
         <div className="hidden items-center gap-8 text-sm font-medium text-[#3b6458] lg:flex">
-          <a href="#how-it-works" className="transition hover:text-[#1f5649]">
+          <Link to="/how-it-works" className="transition hover:text-[#1f5649]">
             How it works
-          </a>
-          <a
-            href="#find-pharmacies"
-            className="transition hover:text-[#1f5649]"
-          >
+          </Link>
+          <Link to="/pharmacies" className="transition hover:text-[#1f5649]">
             Find pharmacies
-          </a>
-          <a href="#support" className="transition hover:text-[#1f5649]">
-            Support
-          </a>
-          <Link to="/partners" className="transition hover:text-[#1f5649]">
+          </Link>
+          <Link to="/pharmacy/register" className="transition hover:text-[#1f5649]">
             Partner with us
           </Link>
           <DropdownMenu>
@@ -65,22 +60,16 @@ function Navbar({ onOpenAssistant }) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-72">
               <DropdownMenuLabel>Assistant tools</DropdownMenuLabel>
-              <DropdownMenuItem
-                onSelect={() => onOpenAssistant?.("scan-prescription")}
-              >
+              <DropdownMenuItem onSelect={() => onOpenAssistant?.("scan-prescription")}>
                 <FileSearch className="h-4.5 w-4.5 text-(--color-primary)" />
                 <div className="flex min-w-0 flex-col">
-                  <span className="font-medium">
-                    Scan doctor&apos;s scribble
-                  </span>
+                  <span className="font-medium">Scan doctor&apos;s scribble</span>
                   <span className="text-xs text-[#6c877e]">
                     Upload a prescription photo and extract the drug names.
                   </span>
                 </div>
               </DropdownMenuItem>
-              <DropdownMenuItem
-                onSelect={() => onOpenAssistant?.("scan-drug-pack")}
-              >
+              <DropdownMenuItem onSelect={() => onOpenAssistant?.("scan-drug-pack")}>
                 <PackageSearch className="h-4.5 w-4.5 text-(--color-primary)" />
                 <div className="flex min-w-0 flex-col">
                   <span className="font-medium">Scan drug pack</span>
@@ -104,17 +93,21 @@ function Navbar({ onOpenAssistant }) {
         </div>
 
         <div className="hidden items-center gap-6 lg:flex">
-          <button className="cursor-pointer text-[14px] font-medium text-[#3b6458] transition hover:text-[#1f5649]">
+          <Link
+            to="/pharmacy/register"
+            className="cursor-pointer text-[14px] font-medium text-[#3b6458] transition hover:text-[#1f5649]"
+          >
             Create Account
-          </button>
+          </Link>
           <Button asChild className="h-10 px-5 text-xs font-medium cursor-pointer">
-            <a href="#find-drug">Find a drug</a>
+            <Link to="/">Find a drug</Link>
           </Button>
         </div>
 
+        {/* Mobile: search button + hamburger */}
         <div className="flex items-center gap-2 lg:hidden">
           <Button asChild className="h-10 px-3.5 text-[11px] font-medium sm:px-4 sm:text-xs">
-            <a href="#find-drug">Search</a>
+            <Link to="/">Search</Link>
           </Button>
           <button
             type="button"
@@ -123,40 +116,37 @@ function Navbar({ onOpenAssistant }) {
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
+      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="border-t border-[rgba(31,86,73,0.08)] bg-[rgba(255,255,255,0.96)] px-5 pb-5 pt-4 backdrop-blur-xl lg:hidden">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-2 text-sm font-medium text-[#355b50]">
-              <a
-                href="#how-it-works"
+              <Link
+                to="/how-it-works"
                 onClick={() => setMobileMenuOpen(false)}
                 className="rounded-2xl px-3 py-3 transition hover:bg-(--color-surface-soft)"
               >
                 How it works
-              </a>
-              <a
-                href="#find-pharmacies"
+              </Link>
+              <Link
+                to="/pharmacies"
                 onClick={() => setMobileMenuOpen(false)}
                 className="rounded-2xl px-3 py-3 transition hover:bg-(--color-surface-soft)"
               >
                 Find pharmacies
-              </a>
-              <a
-                href="#support"
+              </Link>
+              <Link
+                to="/pharmacy/register"
                 onClick={() => setMobileMenuOpen(false)}
                 className="rounded-2xl px-3 py-3 transition hover:bg-(--color-surface-soft)"
               >
-                Support
-              </a>
+                Partner with us
+              </Link>
             </div>
 
             <div className="mt-4 rounded-[1.4rem] border border-(--color-border) bg-white p-2 shadow-[0_12px_30px_rgba(31,86,73,0.06)]">
@@ -213,12 +203,13 @@ function Navbar({ onOpenAssistant }) {
               </button>
             </div>
 
-            <button
-              type="button"
-              className="mt-4 w-full rounded-full border border-(--color-border) bg-white px-4 py-3 text-sm font-semibold text-(--color-foreground) shadow-[0_10px_24px_rgba(31,86,73,0.06)]"
+            <Link
+              to="/pharmacy/register"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-4 block w-full rounded-full border border-(--color-border) bg-white px-4 py-3 text-center text-sm font-semibold text-(--color-foreground) shadow-[0_10px_24px_rgba(31,86,73,0.06)]"
             >
               Create Account
-            </button>
+            </Link>
           </div>
         </div>
       )}

@@ -31,7 +31,7 @@ export async function getSmartSuggestions(userInput, drugCatalog) {
           content: `You are the "Core AI Pharmacist" for a Nigerian pharmacy finder app.
 
           AUTHORITATIVE DRUG CATALOG (JSON array). Each item has "id", "name", "genericName", "brandNames".
-          You MUST ONLY suggest drugs that appear in this catalog. Copy "id" EXACTLY — never invent ids.
+          You MUST ONLY suggest drugs that appear in this catalog. Copy "id" EXACTLY - never invent ids.
           ${catalogJson}
 
           RULES:

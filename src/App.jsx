@@ -1,29 +1,46 @@
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage.jsx";
-import SearchPage from "./pages/SearchPage.jsx";
-import PharmacyLayout from "./components/pharmacy-dashboard/PharmacyLayout.jsx";
-import InventoryPage from "./components/pharmacy-dashboard/InventoryPage.jsx";
-import OverviewPage from "./components/pharmacy-dashboard/OverviewPage.jsx";
+import HomePage              from "./pages/HomePage.jsx";
+import SearchPage            from "./pages/SearchPage.jsx";
+import FindPharmaciesPage    from "./pages/FindPharmaciesPage.jsx";
+import HowItWorksPage        from "./pages/HowItWorksPage.jsx";
+import PharmacyLayout        from "./components/pharmacy-dashboard/PharmacyLayout.jsx";
+import PharmacyDashboardPage from "./pages/PharmacyDashboardPage.jsx";
+import PharmacyLoginPage     from "./pages/PharmacyLoginPage.jsx";
+import PharmacyRegisterPage  from "./pages/PharmacyRegisterPage.jsx";
+
+/* ────────────────────────────────────────────────────────────
+   App  -  top-level route tree.
+
+   Dashboard tab routing is handled via ?tab= query params:
+     /pharmacy/dashboard?tab=overview   → Overview / insights
+     /pharmacy/dashboard?tab=drugs      → Drug catalogue list
+     /pharmacy/dashboard?tab=inventory  → Pharmacy's stock
+
+   PharmacyLayout provides the icon sidebar + top header.
+   PharmacyDashboardPage reads the ?tab param and renders
+   the correct tab component.
+──────────────────────────────────────────────────────────── */
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/search" element={<SearchPage />} />
+      {/* Public pages */}
+      <Route path="/"           element={<HomePage />} />
+      <Route path="/search"     element={<SearchPage />} />
+      <Route path="/pharmacies"    element={<FindPharmaciesPage />} />
+      <Route path="/how-it-works" element={<HowItWorksPage />} />
 
+      {/* Pharmacy partner auth */}
+      <Route path="/pharmacy/login"    element={<PharmacyLoginPage />} />
+      <Route path="/pharmacy/register" element={<PharmacyRegisterPage />} />
+      <Route path="/partners"          element={<PharmacyRegisterPage />} />
+
+      {/* Pharmacy dashboard - all tabs under one route */}
       <Route
         path="/pharmacy/dashboard"
         element={
           <PharmacyLayout>
-            <OverviewPage />
-          </PharmacyLayout>
-        }
-      />
-      <Route
-        path="/pharmacy/dashboard/inventory"
-        element={
-          <PharmacyLayout>
-            <InventoryPage />
+            <PharmacyDashboardPage />
           </PharmacyLayout>
         }
       />

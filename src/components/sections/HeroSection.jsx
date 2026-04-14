@@ -8,7 +8,7 @@ import DrugSearch from "../hero/DrugSearch.jsx";
 
 function HeroSection({ onOpenAssistant }) {
   return (
-    <section className="relative z-20 overflow-visible pb-16 pt-3 lg:pb-20">
+    <section id="find-drug" className="relative z-20 overflow-visible pb-16 pt-3 lg:pb-20">
       <div className="absolute inset-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"

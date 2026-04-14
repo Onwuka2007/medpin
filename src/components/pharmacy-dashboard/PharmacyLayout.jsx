@@ -1,109 +1,152 @@
-import React from "react";
+import { NavLink, useLocation } from "react-router-dom"
 import {
   LayoutDashboard,
+  Pill,
   Package,
-  BarChart3,
   Settings,
+  Search,
   Bell,
-} from "lucide-react";
-import { NavLink } from "react-router-dom";
+} from "lucide-react"
+import { mockPharmacyProfile } from "../../data/mock/dashboard.js"
 
-const PharmacyLayout = ({ children, pharmacyName = "Alpha Pharmacy" }) => {
+/* ────────────────────────────────────────────────────────────
+   PharmacyLayout - fixed sidebar on desktop, bottom nav on mobile.
+
+   Desktop: fixed 96px sidebar + sticky top-bar + scrollable main
+   Mobile:  no sidebar; fixed bottom tab bar; content is full-width
+──────────────────────────────────────────────────────────── */
+
+const NAV_ITEMS = [
+  { icon: LayoutDashboard, label: "Dashboard", tab: "overview"  },
+  { icon: Pill,            label: "Drug List",  tab: "drugs"     },
+  { icon: Package,         label: "My Stock",   tab: "inventory" },
+]
+
+export default function PharmacyLayout({ children }) {
+  const location     = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const activeTab    = searchParams.get("tab") || "overview"
+
   return (
-    <div className="flex min-h-screen bg-slate-50 font-sans text-slate-900">
-      {/* 1. Accessible Skip Link */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:bg-white focus:p-4"
-      >
+    <div className="min-h-screen bg-[#f4f9f6] text-slate-900">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:bg-white focus:p-4">
         Skip to main content
       </a>
 
-      {/* 2. Sidebar Navigation */}
+      {/* ── Desktop sidebar (hidden on mobile) ─────────── */}
       <aside
-        className="w-64 border-r border-slate-200 bg-white"
-        aria-label="Main Navigation"
+        className="fixed left-0 top-0 z-40 hidden h-screen w-24 flex-col items-center border-r border-slate-200 bg-[#F8FAFC] py-6 lg:flex"
+        aria-label="Main navigation"
       >
-        <div className="flex h-16 items-center border-b border-slate-100 px-6">
-          <span className="text-xl font-bold tracking-tight text-emerald-600">
-            MedPin
-          </span>
-          <span className="ml-1 text-xs font-medium text-slate-400">PRO</span>
+        {/* Logo */}
+        <div className="mb-10 flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500">
+          <span className="text-sm font-black tracking-tight text-white">M</span>
         </div>
 
-        <nav className="mt-6 px-3 space-y-1">
-          <NavItem
-            icon={<LayoutDashboard size={20} />}
-            label="Overview"
-            to="/pharmacy/dashboard"
-            end
-          />
-          <NavItem
-            icon={<Package size={20} />}
-            label="Inventory"
-            to="/pharmacy/dashboard/inventory"
-          />
-          <NavItem icon={<BarChart3 size={20} />} label="Demand AI" to="#" />
-          <NavItem icon={<Settings size={20} />} label="Settings" to="#" />
+        {/* Main nav */}
+        <nav className="flex flex-1 flex-col items-center gap-1 w-full">
+          {NAV_ITEMS.map(({ icon: Icon, label, tab }) => {
+            const isActive = activeTab === tab
+            return (
+              <NavLink
+                key={tab}
+                to={`/pharmacy/dashboard?tab=${tab}`}
+                title={label}
+                className={`group relative flex w-full flex-col items-center gap-1.5 rounded-xl px-2 py-3.5 transition-colors duration-150 ${
+                  isActive ? "" : "hover:bg-slate-100"
+                }`}
+              >
+                {isActive && (
+                  <span className="absolute right-0 top-1/2 -translate-y-1/2 h-8 w-[4px] rounded-l-full bg-emerald-500" />
+                )}
+                <Icon size={20} className={isActive ? "text-emerald-600" : "text-[#475569] group-hover:text-slate-800"} />
+                <span className={`text-[10px] leading-none ${isActive ? "text-emerald-600 font-semibold" : "text-[#475569] group-hover:text-slate-800"}`}>
+                  {label}
+                </span>
+              </NavLink>
+            )
+          })}
         </nav>
+
+        {/* Settings pinned to bottom */}
+        <div className="w-full">
+          <NavLink
+            to="/pharmacy/dashboard?tab=settings"
+            title="Settings"
+            className={`group relative flex w-full flex-col items-center gap-1.5 rounded-xl px-2 py-3.5 transition-colors duration-150 ${
+              activeTab === "settings" ? "" : "hover:bg-slate-100"
+            }`}
+          >
+            {activeTab === "settings" && (
+              <span className="absolute right-0 top-1/2 -translate-y-1/2 h-8 w-[4px] rounded-l-full bg-emerald-500" />
+            )}
+            <Settings size={20} className={activeTab === "settings" ? "text-emerald-600" : "text-[#475569] group-hover:text-slate-800"} />
+            <span className={`text-[10px] leading-none ${activeTab === "settings" ? "text-emerald-600 font-semibold" : "text-[#475569] group-hover:text-slate-800"}`}>
+              Settings
+            </span>
+          </NavLink>
+        </div>
       </aside>
 
-      {/* 3. Main Content Area */}
-      <div className="flex flex-1 flex-col">
-        {/* Top Header */}
-        <header className="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-8">
-          <h1 className="text-sm font-medium text-slate-500 uppercase tracking-wider">
-            Pharmacy Dashboard
-          </h1>
-          <div className="flex items-center gap-4">
-            <button
-              aria-label="Notifications"
-              className="p-2 text-slate-400 hover:text-slate-600"
-            >
-              <Bell size={20} />
+      {/* ── Main area ──────────────────────────────────── */}
+      {/* Desktop: offset by sidebar. Mobile: full width, padded for bottom bar */}
+      <div className="flex min-h-screen flex-col lg:ml-24">
+
+        {/* Top header */}
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-slate-200 bg-white px-4 lg:px-6">
+          <div>
+            <p className="text-[11px] text-slate-400">Hello,</p>
+            <p className="text-sm font-semibold text-slate-800 leading-tight">{mockPharmacyProfile.name}</p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button aria-label="Search" className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-600">
+              <Search size={16} />
             </button>
-            <div className="h-8 w-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
-              {pharmacyName[0]}
+            <button aria-label="Notifications" className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-600">
+              <Bell size={16} />
+            </button>
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-700">
+                {mockPharmacyProfile.initials}
+              </div>
+              {/* Name hidden on small screens */}
+              <span className="hidden text-sm font-medium text-slate-700 sm:block">
+                {mockPharmacyProfile.name}
+              </span>
             </div>
           </div>
         </header>
 
-        {/* 4. The "Children" Slot */}
-        <main id="main-content" className="flex-1 p-8 focus:outline-none">
+        {/* Page content - extra bottom padding on mobile for the tab bar */}
+        <main id="main-content" className="flex-1 overflow-auto pb-20 focus:outline-none lg:pb-0">
           {children}
         </main>
       </div>
+
+      {/* ── Mobile bottom nav (hidden on desktop) ───────── */}
+      <nav
+        className="fixed bottom-0 left-0 right-0 z-40 flex border-t border-slate-200 bg-white lg:hidden"
+        aria-label="Mobile navigation"
+      >
+        {[...NAV_ITEMS, { icon: Settings, label: "Settings", tab: "settings" }].map(
+          ({ icon: Icon, label, tab }) => {
+            const isActive = activeTab === tab
+            return (
+              <NavLink
+                key={tab}
+                to={`/pharmacy/dashboard?tab=${tab}`}
+                className="flex flex-1 flex-col items-center gap-1 py-3 transition-colors"
+              >
+                <Icon size={20} className={isActive ? "text-emerald-500" : "text-slate-400"} />
+                <span className={`text-[10px] leading-none font-medium ${isActive ? "text-emerald-500" : "text-slate-400"}`}>
+                  {label}
+                </span>
+              </NavLink>
+            )
+          }
+        )}
+      </nav>
     </div>
-  );
-};
-
-// Helper Nav Component
-const NavItem = ({ icon, label, to, end = false }) => {
-  if (to === "#") {
-    return (
-      <span className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-400">
-        {icon}
-        {label}
-      </span>
-    );
-  }
-
-  return (
-    <NavLink
-      to={to}
-      end={end}
-      className={({ isActive }) =>
-        `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-          isActive
-            ? "bg-emerald-50 text-emerald-700"
-            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-        }`
-      }
-    >
-      {icon}
-      {label}
-    </NavLink>
-  );
-};
-
-export default PharmacyLayout;
+  )
+}
