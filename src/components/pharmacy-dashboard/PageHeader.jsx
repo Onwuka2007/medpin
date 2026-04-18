@@ -1,12 +1,3 @@
-/* ────────────────────────────────────────────────────────────
-   PageHeader  -  reusable section heading used by every tab.
-
-   Usage:
-     <PageHeader
-       title="Dashboard"
-       description="Your pharmacy's performance snapshot"
-     />
-──────────────────────────────────────────────────────────── */
 export default function PageHeader({ title, description }) {
   return (
     <div className="mb-6">

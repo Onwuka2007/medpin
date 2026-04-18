@@ -1,76 +1,65 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import { Eye, EyeOff, ArrowRight, ArrowLeft, Check, ShieldCheck, Upload } from "lucide-react"
-import { Input } from "@/components/ui/input.jsx"
-
-/* ────────────────────────────────────────────────────────────
-   PharmacyRegisterPage  -  partner pharmacy sign-up.
-   Multi-step form. UI shell only - no real submission.
-
-   Steps:
-   1. Account setup       (email, password)
-   2. Pharmacy details    (name, phone, address, state)
-   3. Verification        (PCN, CAC, superintendent, NAFDAC)
-   4. Review & submit
-──────────────────────────────────────────────────────────── */
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Eye, EyeOff, ArrowRight, ArrowLeft, Check, ShieldCheck, Upload } from "lucide-react";
+import { Input } from "@/components/ui/input.jsx";
 
 const STEPS = [
-  { id: 1, label: "Account"      },
-  { id: 2, label: "Details"      },
+  { id: 1, label: "Account" },
+  { id: 2, label: "Details" },
   { id: 3, label: "Verification" },
-  { id: 4, label: "Review"       },
-]
+  { id: 4, label: "Review" },
+];
 
 const NIGERIAN_STATES = [
-  "Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno",
-  "Cross River","Delta","Ebonyi","Edo","Ekiti","Enugu","FCT – Abuja","Gombe",
-  "Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos",
-  "Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto",
-  "Taraba","Yobe","Zamfara",
-]
+  "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno",
+  "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "FCT – Abuja", "Gombe",
+  "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos",
+  "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto",
+  "Taraba", "Yobe", "Zamfara",
+];
 
 export default function PharmacyRegisterPage() {
-  const [step, setStep] = useState(1)
-  const [submitted, setSubmitted] = useState(false)
-  const [showPass, setShowPass] = useState(false)
+  const [step, setStep] = useState(1);
+  const [submitted, setSubmitted] = useState(false);
+  const [showPass, setShowPass] = useState(false);
 
   /* Form state */
   const [form, setForm] = useState({
     /* Step 1 */
-    email:           "",
-    password:        "",
+    email: "",
+    password: "",
     confirmPassword: "",
     /* Step 2 */
-    pharmacyName:    "",
-    phone:           "",
-    address:         "",
-    city:            "",
-    state:           "",
+    pharmacyName: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
     /* Step 3 */
-    pcnLicenseNo:       "",   // Pharmacists Council of Nigeria registration
-    cacRegNo:           "",   // Corporate Affairs Commission
-    superintendentName: "",   // Superintendent pharmacist full name
-    superintendentPcn:  "",   // Superintendent pharmacist PCN license
-    nafdacNo:           "",   // Optional
-    agreedToTerms:      false,
-  })
+    pcnLicenseNo: "",
+    cacRegNo: "",
+    superintendentName: "",
+    superintendentPcn: "",
+    nafdacNo: "",
+    agreedToTerms: false,
+  });
 
-  const update = (field, value) => setForm((f) => ({ ...f, [field]: value }))
+  const update = (field, value) => setForm((f) => ({ ...f, [field]: value }));
 
-  const next = () => setStep((s) => Math.min(s + 1, 4))
-  const back = () => setStep((s) => Math.max(s - 1, 1))
+  const next = () => setStep((s) => Math.min(s + 1, 4));
+  const back = () => setStep((s) => Math.max(s - 1, 1));
 
   const handleSubmit = () => {
     /* Shell only - just show success state */
-    setSubmitted(true)
-  }
+    setSubmitted(true);
+  };
 
-  if (submitted) return <SuccessScreen pharmacyName={form.pharmacyName} />
+  if (submitted) return <SuccessScreen pharmacyName={form.pharmacyName} />;
 
   return (
     <div className="flex min-h-screen">
 
-      {/* ── Left: brand panel ────────────────────────────── */}
+      {/* Left*/}
       <div className="hidden lg:flex lg:w-[38%] flex-col justify-between bg-[#1f5649] p-12 text-white">
         <Link to="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-400">
@@ -93,13 +82,12 @@ export default function PharmacyRegisterPage() {
           <div className="mt-10 space-y-4">
             {STEPS.map((s) => (
               <div key={s.id} className="flex items-center gap-3">
-                <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors ${
-                  step > s.id
-                    ? "bg-emerald-400 text-white"
-                    : step === s.id
-                      ? "bg-white text-[#1f5649]"
-                      : "bg-white/10 text-white/40"
-                }`}>
+                <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors ${step > s.id
+                  ? "bg-emerald-400 text-white"
+                  : step === s.id
+                    ? "bg-white text-[#1f5649]"
+                    : "bg-white/10 text-white/40"
+                  }`}>
                   {step > s.id ? <Check size={13} /> : s.id}
                 </div>
                 <span className={`text-sm ${step >= s.id ? "text-white" : "text-white/40"}`}>
@@ -115,7 +103,7 @@ export default function PharmacyRegisterPage() {
         </p>
       </div>
 
-      {/* ── Right: form panel ────────────────────────────── */}
+      {/* Right: form */}
       <div className="flex flex-1 flex-col items-center justify-center bg-[#f4f9f6] px-6 py-12">
 
         {/* Mobile logo */}
@@ -129,9 +117,8 @@ export default function PharmacyRegisterPage() {
         {/* Mobile step dots */}
         <div className="mb-6 flex items-center gap-2 lg:hidden">
           {STEPS.map((s) => (
-            <div key={s.id} className={`h-2 rounded-full transition-all ${
-              step === s.id ? "w-6 bg-emerald-500" : step > s.id ? "w-2 bg-emerald-300" : "w-2 bg-slate-200"
-            }`} />
+            <div key={s.id} className={`h-2 rounded-full transition-all ${step === s.id ? "w-6 bg-emerald-500" : step > s.id ? "w-2 bg-emerald-300" : "w-2 bg-slate-200"
+              }`} />
           ))}
         </div>
 
@@ -172,7 +159,7 @@ export default function PharmacyRegisterPage() {
             </StepShell>
           )}
 
-          {/* ── Step 2: Pharmacy details ──────────────────── */}
+          {/* ── Step 2: Pharmacy details*/}
           {step === 2 && (
             <StepShell
               title="Pharmacy details"
@@ -216,7 +203,7 @@ export default function PharmacyRegisterPage() {
             </StepShell>
           )}
 
-          {/* ── Step 3: Verification ──────────────────────── */}
+          {/* Step 3: Verification*/}
           {step === 3 && (
             <StepShell
               title="Verification documents"
@@ -270,7 +257,7 @@ export default function PharmacyRegisterPage() {
             </StepShell>
           )}
 
-          {/* ── Step 4: Review & submit ───────────────────── */}
+          {/* Review & submit  */}
           {step === 4 && (
             <StepShell
               title="Review & submit"
@@ -282,13 +269,13 @@ export default function PharmacyRegisterPage() {
             >
               {/* Summary rows */}
               <div className="rounded-xl border border-slate-200 bg-white divide-y divide-slate-100 text-sm overflow-hidden">
-                <ReviewRow label="Email"            value={form.email} />
-                <ReviewRow label="Pharmacy"         value={form.pharmacyName} />
-                <ReviewRow label="Phone"            value={form.phone} />
-                <ReviewRow label="Address"          value={`${form.address}${form.city ? ", " + form.city : ""}, ${form.state}`} />
-                <ReviewRow label="PCN License"      value={form.pcnLicenseNo} />
-                <ReviewRow label="CAC No."          value={form.cacRegNo} />
-                <ReviewRow label="Superintendent"   value={`${form.superintendentName} (${form.superintendentPcn})`} />
+                <ReviewRow label="Email" value={form.email} />
+                <ReviewRow label="Pharmacy" value={form.pharmacyName} />
+                <ReviewRow label="Phone" value={form.phone} />
+                <ReviewRow label="Address" value={`${form.address}${form.city ? ", " + form.city : ""}, ${form.state}`} />
+                <ReviewRow label="PCN License" value={form.pcnLicenseNo} />
+                <ReviewRow label="CAC No." value={form.cacRegNo} />
+                <ReviewRow label="Superintendent" value={`${form.superintendentName} (${form.superintendentPcn})`} />
                 {form.nafdacNo && <ReviewRow label="NAFDAC" value={form.nafdacNo} />}
               </div>
 
@@ -318,10 +305,8 @@ export default function PharmacyRegisterPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-/* ── Sub-components ───────────────────────────────────────── */
 
 function StepShell({ title, description, children, onNext, onBack, nextLabel = "Continue", nextDisabled }) {
   return (
@@ -353,7 +338,7 @@ function StepShell({ title, description, children, onNext, onBack, nextLabel = "
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 function Field({ label, hint, children }) {
@@ -363,7 +348,7 @@ function Field({ label, hint, children }) {
       {children}
       {hint && <p className="mt-1 text-[11px] text-slate-400">{hint}</p>}
     </div>
-  )
+  );
 }
 
 function ReviewRow({ label, value }) {
@@ -372,7 +357,7 @@ function ReviewRow({ label, value }) {
       <span className="shrink-0 text-xs font-medium text-slate-400 w-28">{label}</span>
       <span className="text-xs text-slate-700 text-right">{value}</span>
     </div>
-  )
+  );
 }
 
 function SuccessScreen({ pharmacyName }) {
@@ -389,8 +374,8 @@ function SuccessScreen({ pharmacyName }) {
         to="/"
         className="mt-8 flex items-center gap-2 rounded-xl bg-emerald-500 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-600"
       >
-        <span className="text-white">Back to home</span> <ArrowRight size={15} className="text-white"/>
+        <span className="text-white">Back to home</span> <ArrowRight size={15} className="text-white" />
       </Link>
     </div>
-  )
+  );
 }

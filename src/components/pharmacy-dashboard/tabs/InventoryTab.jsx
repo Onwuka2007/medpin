@@ -1,15 +1,15 @@
-import React, { useState, useMemo } from "react"
-import PageHeader from "../PageHeader.jsx"
-import { Search, Filter, Package } from "lucide-react"
-import { Input }   from "@/components/ui/input.jsx"
-import { Badge }   from "@/components/ui/badge.jsx"
+import React, { useState, useMemo } from "react";
+import PageHeader from "../PageHeader.jsx";
+import { Search, Filter, Package } from "lucide-react";
+import { Input } from "@/components/ui/input.jsx";
+import { Badge } from "@/components/ui/badge.jsx";
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from "@/components/ui/select.jsx"
+} from "@/components/ui/select.jsx";
 import {
   Table,
   TableHeader,
@@ -17,69 +17,59 @@ import {
   TableHead,
   TableRow,
   TableCell,
-} from "@/components/ui/table.jsx"
-import StockUpdateModal from "../StockUpdateModal.jsx"
-
-/* ────────────────────────────────────────────────────────────
-   InventoryTab  -  shows the pharmacy's current stock.
-
-   Columns: Drug | Generic | Category | Strength/Form | Qty | Price | Status | Action
-   Filters: search, status filter
-   On "Edit" click → StockUpdateModal (edit mode)
-──────────────────────────────────────────────────────────── */
+} from "@/components/ui/table.jsx";
+import StockUpdateModal from "../StockUpdateModal.jsx";
 
 const NGN = new Intl.NumberFormat("en-NG", {
   style: "currency",
   currency: "NGN",
   maximumFractionDigits: 0,
-})
+});
 
-/** Map status key → Badge variant + label */
 const STATUS_MAP = {
-  in_stock:     { variant: "success", label: "In stock"    },
-  low_stock:    { variant: "warning", label: "Low stock"   },
-  out_of_stock: { variant: "danger",  label: "Out of stock" },
-}
+  in_stock: { variant: "success", label: "In stock" },
+  low_stock: { variant: "warning", label: "Low stock" },
+  out_of_stock: { variant: "danger", label: "Out of stock" },
+};
 
 export default function InventoryTab({ items = [], onUpdate }) {
-  const [searchQuery,  setSearchQuery]  = useState("")
-  const [statusFilter, setStatusFilter] = useState("all")
-  const [editItem,     setEditItem]     = useState(null)
-  const [modalOpen,    setModalOpen]    = useState(false)
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [editItem, setEditItem] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   /* Filtered + searched list */
   const filteredItems = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase()
+    const q = searchQuery.trim().toLowerCase();
     return items.filter((item) => {
       const textMatch = !q || [item.name, item.genericName, item.category]
-        .some((v) => v?.toLowerCase().includes(q))
-      const statusMatch = statusFilter === "all" || item.status === statusFilter
-      return textMatch && statusMatch
-    })
-  }, [items, searchQuery, statusFilter])
+        .some((v) => v?.toLowerCase().includes(q));
+      const statusMatch = statusFilter === "all" || item.status === statusFilter;
+      return textMatch && statusMatch;
+    });
+  }, [items, searchQuery, statusFilter]);
 
   /* Summary stats */
   const stats = useMemo(() => {
-    const total      = items.length
-    const lowOrOut   = items.filter((i) => i.status !== "in_stock").length
-    const totalValue = items.reduce((sum, i) => sum + i.quantity * i.unitPrice, 0)
-    return { total, lowOrOut, totalValue }
-  }, [items])
+    const total = items.length;
+    const lowOrOut = items.filter((i) => i.status !== "in_stock").length;
+    const totalValue = items.reduce((sum, i) => sum + i.quantity * i.unitPrice, 0);
+    return { total, lowOrOut, totalValue };
+  }, [items]);
 
   const handleEditClick = (item) => {
-    setEditItem(item)
-    setModalOpen(true)
-  }
+    setEditItem(item);
+    setModalOpen(true);
+  };
 
   const handleSave = (stockData) => {
-    if (!editItem) return
-    onUpdate(editItem.inventoryId, stockData)
-  }
+    if (!editItem) return;
+    onUpdate(editItem.inventoryId, stockData);
+  };
 
   return (
     <div className="space-y-5 p-4 sm:p-6">
 
-      {/* ── Header ──────────────────────────────────────── */}
       <div className="flex flex-wrap items-start justify-between gap-4">
         <PageHeader
           title="My Stock"
@@ -89,12 +79,12 @@ export default function InventoryTab({ items = [], onUpdate }) {
         {/* Quick stat pills */}
         <div className="flex flex-wrap gap-2">
           <StatPill label="Total listed" value={stats.total} />
-          <StatPill label="Low / Out"    value={stats.lowOrOut}   tone="amber" />
-          <StatPill label="Est. value"   value={NGN.format(stats.totalValue)} />
+          <StatPill label="Low / Out" value={stats.lowOrOut} tone="amber" />
+          <StatPill label="Est. value" value={NGN.format(stats.totalValue)} />
         </div>
       </div>
 
-      {/* ── Filter bar ──────────────────────────────────── */}
+      {/* Filter */}
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative w-full min-w-0 sm:flex-1 sm:max-w-sm">
           <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -126,7 +116,6 @@ export default function InventoryTab({ items = [], onUpdate }) {
         </div>
       </div>
 
-      {/* ── Table ───────────────────────────────────────── */}
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-x-auto">
         <Table>
           <TableHeader>
@@ -148,14 +137,14 @@ export default function InventoryTab({ items = [], onUpdate }) {
                   <Package size={32} className="mx-auto mb-3 text-slate-300" />
                   <p className="text-sm text-slate-400">
                     {items.length === 0
-                      ? "No drugs in inventory yet. Add from the Drug List tab."
+                      ? `No drugs in inventory yet. Add from the ${<Link to="/pharmacy/drug-list" className="font-semibold underline">Drug List</Link>} tab.`
                       : "No items match your search or filter."}
                   </p>
                 </TableCell>
               </TableRow>
             ) : (
               filteredItems.map((item) => {
-                const statusInfo = STATUS_MAP[item.status] ?? STATUS_MAP.in_stock
+                const statusInfo = STATUS_MAP[item.status] ?? STATUS_MAP.in_stock;
                 return (
                   <TableRow key={item.inventoryId}>
                     {/* Drug name */}
@@ -175,13 +164,12 @@ export default function InventoryTab({ items = [], onUpdate }) {
                     {/* Qty with colour hint */}
                     <TableCell>
                       <span
-                        className={`font-semibold ${
-                          item.status === "out_of_stock"
-                            ? "text-rose-600"
-                            : item.status === "low_stock"
-                              ? "text-amber-600"
-                              : "text-slate-800"
-                        }`}
+                        className={`font-semibold ${item.status === "out_of_stock"
+                          ? "text-rose-600"
+                          : item.status === "low_stock"
+                            ? "text-amber-600"
+                            : "text-slate-800"
+                          }`}
                       >
                         {item.quantity}
                       </span>
@@ -212,47 +200,38 @@ export default function InventoryTab({ items = [], onUpdate }) {
                       </button>
                     </TableCell>
                   </TableRow>
-                )
+                );
               })
             )}
           </TableBody>
         </Table>
       </div>
 
-      {/* ── Notes ───────────────────────────────────────── */}
-      {items.length > 0 && (
-        <p className="text-xs text-slate-400">
-          Edits update local state only. Changes will persist to backend once API integration is complete.
-        </p>
-      )}
-
-      {/* ── Edit Modal ──────────────────────────────────── */}
+      {/* Edit Modal */}
       <StockUpdateModal
         open={modalOpen}
-        onClose={() => { setModalOpen(false); setEditItem(null) }}
+        onClose={() => { setModalOpen(false); setEditItem(null); }}
         drug={editItem}
         initialData={editItem ? {
-          quantity:  editItem.quantity,
+          quantity: editItem.quantity,
           unitPrice: editItem.unitPrice,
-          notes:     editItem.notes,
+          notes: editItem.notes,
         } : {}}
         mode="edit"
         onSave={handleSave}
       />
     </div>
-  )
+  );
 }
 
 /** Small stat pill for the header row */
 function StatPill({ label, value, tone = "default" }) {
-  const cls = tone === "amber"
-    ? "border-amber-200 bg-amber-50 text-amber-800"
-    : "border-slate-200 bg-white text-slate-800"
+  const cls = tone === "amber" ? "border-amber-200 bg-amber-50 text-amber-800" : "border-slate-200 bg-white text-slate-800";
 
   return (
-    <div className={`rounded-xl border px-3 py-2 text-center shadow-sm ${cls}`}>
+    <div className={`rounded-xl border px-6 py-2 text-center shadow-sm ${cls}`}>
       <p className="text-xs text-slate-500">{label}</p>
       <p className="mt-0.5 text-sm font-semibold">{value}</p>
     </div>
-  )
+  );
 }

@@ -11,19 +11,6 @@ import {
 import { Input } from "@/components/ui/input.jsx"
 import { Badge } from "@/components/ui/badge.jsx"
 
-/* ────────────────────────────────────────────────────────────
-   StockUpdateModal
-   Used by both DrugListTab (add new) and InventoryTab (edit).
-
-   Props:
-   - open          boolean - controls visibility
-   - onClose       () => void
-   - drug          { name, genericName, category, form, strength }
-   - initialData   { quantity, unitPrice, notes }  - for edit mode
-   - onSave        (stockData) => void
-   - mode          "add" | "edit"
-──────────────────────────────────────────────────────────── */
-
 function currencyFormat(value) {
   if (!value) return ""
   return new Intl.NumberFormat("en-NG", {
@@ -45,7 +32,7 @@ export default function StockUpdateModal({
   const [unitPrice, setUnitPrice] = useState("")
   const [notes,     setNotes]     = useState("")
 
-  /* Sync fields when the drug / initial data changes */
+  /* Sync fields when data changes */
   useEffect(() => {
     if (open) {
       setQuantity(initialData.quantity  ?? "")
