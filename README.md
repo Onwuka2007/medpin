@@ -91,7 +91,8 @@ src/
 
 ## Screenshots
 
-> *(Add screenshots here)*
+> <img width="950" height="540" alt="image" src="https://github.com/user-attachments/assets/f59ec547-f421-4923-99b5-03b9531f5edb" />
+> <img width="950" height="540" alt="image" src="https://github.com/user-attachments/assets/c9b61826-5b66-47fb-8add-375d86ddcb3d" />
 
 ---
 
