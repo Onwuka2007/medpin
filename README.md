@@ -37,22 +37,6 @@
 - Node.js 18+
 - A [Groq API key](https://console.groq.com)
 
-### Installation
-
-```bash
-git clone https://github.com/your-username/medpin.git
-cd medpin
-npm install
-```
-
-### Environment Variables
-
-Create a `.env` file in the project root:
-
-```env
-VITE_GROQ_API_KEY=your_groq_api_key_here
-```
-
 ### Running Locally
 
 ```bash
