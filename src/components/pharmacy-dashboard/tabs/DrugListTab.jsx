@@ -205,9 +205,9 @@ export default function DrugListTab({ inventoryKeys = new Set(), onAddToInventor
       </div>
 
       {}
-      <p className="text-xs text-slate-400">
+      {/* <p className="text-xs text-slate-400">
         Drug catalogue is seeded from mock data. OpenFDA integration will be wired in the backend phase.
-      </p>
+      </p> */}
 
       {}
       <StockUpdateModal

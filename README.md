@@ -59,23 +59,15 @@ src/
 │   ├── search/       # Search results & filters
 │   └── pharmacy-dashboard/  # Partner portal
 ├── services/         # Groq AI, search logic, OpenFDA API calls
-├── data/mock/        # Pharmacy, drug, and inventory mock data
 └── lib/              # Utilities (distance calc, search storage)
 ```
-
----
-
-## Key Design Decisions
-
-- **AI-first search with fuzzy fallback** — If the LLM returns no results, a scored string-matching algorithm (prefix, substring, synonym) ensures users always see relevant results
-- **No backend required** — The app runs entirely in the browser using Vite + Groq's client SDK, making it fast to prototype and deploy
-- **Nigeria-specific data model** — Pharmacies include NAFDAC status, NGN pricing, WhatsApp contact support, and Lagos/Abuja area metadata
 
 ---
 
 ## Screenshots
 
 > <img width="950" height="540" alt="image" src="https://github.com/user-attachments/assets/f59ec547-f421-4923-99b5-03b9531f5edb" />
+>
 > <img width="950" height="540" alt="image" src="https://github.com/user-attachments/assets/c9b61826-5b66-47fb-8add-375d86ddcb3d" />
 
 ---
