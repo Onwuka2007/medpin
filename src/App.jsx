@@ -8,18 +8,6 @@ import PharmacyDashboardPage from "./pages/PharmacyDashboardPage.jsx";
 import PharmacyLoginPage     from "./pages/PharmacyLoginPage.jsx";
 import PharmacyRegisterPage  from "./pages/PharmacyRegisterPage.jsx";
 
-/* ────────────────────────────────────────────────────────────
-   App  -  top-level route tree.
-
-   Dashboard tab routing is handled via ?tab= query params:
-     /pharmacy/dashboard?tab=overview   → Overview / insights
-     /pharmacy/dashboard?tab=drugs      → Drug catalogue list
-     /pharmacy/dashboard?tab=inventory  → Pharmacy's stock
-
-   PharmacyLayout provides the icon sidebar + top header.
-   PharmacyDashboardPage reads the ?tab param and renders
-   the correct tab component.
-──────────────────────────────────────────────────────────── */
 
 export default function App() {
   return (

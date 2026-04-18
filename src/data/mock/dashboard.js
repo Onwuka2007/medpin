@@ -1,8 +1,4 @@
-/* ────────────────────────────────────────────────────────────
-   dashboard.js  -  Mock data for the Pharmacy Dashboard
-   All shapes here serve as the blueprint for the real API.
-   No backend logic; values are representative dummy data.
-──────────────────────────────────────────────────────────── */
+
 
 export const mockPharmacyProfile = {
   id: 'pharm-alpha-mainland',
@@ -11,7 +7,6 @@ export const mockPharmacyProfile = {
   initials: 'AP',
 }
 
-/* ── Today's snapshot metrics ─────────────────────────── */
 export const mockDashboardMetrics = {
   pharmacyId: 'pharm-alpha-mainland',
 

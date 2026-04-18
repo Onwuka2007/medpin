@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { mockDrugs, mockInventory } from "../data/mock/index.js";
 import OverviewTab from "../components/pharmacy-dashboard/tabs/OverviewTab.jsx";

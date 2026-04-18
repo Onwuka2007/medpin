@@ -21,13 +21,6 @@ import {
 import StockUpdateModal from "../StockUpdateModal.jsx"
 import { mockDrugs } from "../../../data/mock/index.js"
 
-/* ────────────────────────────────────────────────────────────
-   DrugListTab  -  browse the full MedPin drug catalogue.
-
-   Columns: Drug name | Generic | Category | Form | Strength | Rx | Action
-   Filters: text search, category dropdown
-   On row click → StockUpdateModal (add mode) → calls onAddToInventory
-──────────────────────────────────────────────────────────── */
 
 /* All unique categories derived from mock data */
 const ALL_CATEGORIES = ["All", ...new Set(mockDrugs.map((d) => d.category))]
@@ -75,13 +68,13 @@ export default function DrugListTab({ inventoryKeys = new Set(), onAddToInventor
   return (
     <div className="space-y-5 p-4 sm:p-6">
 
-      {/* ── Header ──────────────────────────────────────── */}
+      {}
       <PageHeader
         title="Drug List"
         description="Browse the MedPin drug catalogue. Click a row to add it to your inventory."
       />
 
-      {/* ── Filter bar ──────────────────────────────────── */}
+      {}
       <div className="flex flex-wrap items-center gap-3">
         {/* Search - full width on mobile, capped on larger screens */}
         <div className="relative w-full min-w-0 sm:flex-1 sm:max-w-sm">
@@ -127,7 +120,7 @@ export default function DrugListTab({ inventoryKeys = new Set(), onAddToInventor
         </div>
       </div>
 
-      {/* ── Table ───────────────────────────────────────── */}
+      {}
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-x-auto">
         <Table>
           <TableHeader>
@@ -211,12 +204,12 @@ export default function DrugListTab({ inventoryKeys = new Set(), onAddToInventor
         </Table>
       </div>
 
-      {/* ── Note ────────────────────────────────────────── */}
+      {}
       <p className="text-xs text-slate-400">
         Drug catalogue is seeded from mock data. OpenFDA integration will be wired in the backend phase.
       </p>
 
-      {/* ── Stock Update Modal ───────────────────────────── */}
+      {}
       <StockUpdateModal
         open={modalOpen}
         onClose={() => { setModalOpen(false); setSelectedDrug(null) }}

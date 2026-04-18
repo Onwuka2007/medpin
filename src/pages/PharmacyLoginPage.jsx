@@ -3,10 +3,6 @@ import { Link } from "react-router-dom"
 import { Eye, EyeOff, ArrowRight, ShieldCheck } from "lucide-react"
 import { Input } from "@/components/ui/input.jsx"
 
-/* ────────────────────────────────────────────────────────────
-   PharmacyLoginPage  -  partner pharmacy sign-in.
-   No real auth; UI shell only.
-──────────────────────────────────────────────────────────── */
 
 export default function PharmacyLoginPage() {
   const [email,       setEmail]       = useState("")
@@ -24,7 +20,7 @@ export default function PharmacyLoginPage() {
   return (
     <div className="flex min-h-screen">
 
-      {/* ── Left: brand panel ────────────────────────────── */}
+      {}
       <div className="hidden lg:flex lg:w-[42%] flex-col justify-between bg-[#1f5649] p-12 text-white">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
@@ -64,7 +60,7 @@ export default function PharmacyLoginPage() {
         </p>
       </div>
 
-      {/* ── Right: form panel ────────────────────────────── */}
+      {}
       <div className="flex flex-1 flex-col items-center justify-center bg-[#f4f9f6] px-6 py-12">
 
         {/* Mobile logo */}

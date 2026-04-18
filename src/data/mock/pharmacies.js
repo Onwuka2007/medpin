@@ -1,3 +1,5 @@
+
+// List of mock data for pharmacies
 export const mockPharmacies = [
   {
     id: 'pharm-safeway-ajao',

@@ -1,10 +1,6 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/* ─────────────────────────────────────────
-   Shadcn-style Input
-   Uses medpin border / focus colours
-───────────────────────────────────────── */
 
 const Input = React.forwardRef(({ className, type, ...props }, ref) => {
   return (

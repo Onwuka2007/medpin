@@ -124,7 +124,7 @@ export default function PharmacyRegisterPage() {
 
         <div className="w-full max-w-md">
 
-          {/* ── Step 1: Account ───────────────────────────── */}
+          {}
           {step === 1 && (
             <StepShell
               title="Create your account"

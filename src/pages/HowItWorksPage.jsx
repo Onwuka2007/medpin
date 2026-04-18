@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import {
   Search,
   MapPin,
@@ -13,14 +13,10 @@ import {
   Stethoscope,
   Truck,
   Star,
-} from "lucide-react"
-import Navbar from "../components/hero/Navbar.jsx"
-import SiteFooter from "../components/layout/SiteFooter.jsx"
-import { Button } from "../components/ui/button.jsx"
-
-/* ────────────────────────────────────────────────────────────
-   HowItWorksPage - explains the MedPin product end-to-end.
-──────────────────────────────────────────────────────────── */
+} from "lucide-react";
+import Navbar from "../components/hero/Navbar.jsx";
+import SiteFooter from "../components/layout/SiteFooter.jsx";
+import { Button } from "../components/ui/button.jsx";
 
 const STEPS = [
   {
@@ -47,7 +43,7 @@ const STEPS = [
       "Call or WhatsApp the pharmacy to confirm, then walk in or request delivery. No more wasted trips or surprises at the counter.",
     detail: "All listed pharmacies are PCN-verified and regularly audited.",
   },
-]
+];
 
 const FEATURES = [
   {
@@ -80,7 +76,7 @@ const FEATURES = [
     heading: "Verified, trusted pharmacies only",
     copy: "Every pharmacy on MedPin holds a valid PCN licence. Unverified listings are never shown to patients.",
   },
-]
+];
 
 const ASSISTANT_TOOLS = [
   {
@@ -101,14 +97,14 @@ const ASSISTANT_TOOLS = [
     description:
       "Ask anything about a drug - dosage, interactions, storage, generics. Get clear, pharmacist-level answers in seconds.",
   },
-]
+];
 
 export default function HowItWorksPage() {
   return (
     <div className="min-h-screen bg-[#f8fbf8] text-slate-900">
       <Navbar />
 
-      {/* ── Hero ────────────────────────────────────────── */}
+      {/* Hero */}
       <section className="bg-[#1f5649] pb-20 pt-32 sm:pt-36">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
           <p className="text-xs font-semibold uppercase tracking-widest text-emerald-300">
@@ -132,14 +128,13 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      {/* ── 3-step process ──────────────────────────────── */}
+      {/* 3-step process */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
         <div className="grid gap-8 md:grid-cols-3">
           {STEPS.map((step, i) => {
-            const Icon = step.icon
+            const Icon = step.icon;
             return (
               <div key={step.number} className="relative flex flex-col">
-                {/* Connector line between steps */}
                 {i < STEPS.length - 1 && (
                   <div className="absolute left-full top-8 hidden w-8 border-t-2 border-dashed border-slate-200 md:block" />
                 )}
@@ -153,12 +148,12 @@ export default function HowItWorksPage() {
                 <p className="mt-2 text-sm leading-6 text-slate-500">{step.description}</p>
                 <p className="mt-3 text-xs text-emerald-600">{step.detail}</p>
               </div>
-            )
+            );
           })}
         </div>
       </section>
 
-      {/* ── Why MedPin / feature grid ───────────────────── */}
+      {/* Why MedPin / feature grid */}
       <section className="bg-white px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
@@ -172,7 +167,7 @@ export default function HowItWorksPage() {
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map((f) => {
-              const Icon = f.icon
+              const Icon = f.icon;
               return (
                 <article
                   key={f.heading}
@@ -184,13 +179,13 @@ export default function HowItWorksPage() {
                   <h3 className="mt-4 font-semibold text-[#173f36]">{f.heading}</h3>
                   <p className="mt-2 text-sm leading-6 text-[#58766c]">{f.copy}</p>
                 </article>
-              )
+              );
             })}
           </div>
         </div>
       </section>
 
-      {/* ── AI assistant tools ───────────────────────────── */}
+      {/* AI assistant tools */}
       <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
@@ -208,7 +203,7 @@ export default function HowItWorksPage() {
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {ASSISTANT_TOOLS.map((tool) => {
-              const Icon = tool.icon
+              const Icon = tool.icon;
               return (
                 <div
                   key={tool.title}
@@ -220,13 +215,13 @@ export default function HowItWorksPage() {
                   <h3 className="mt-4 font-semibold text-slate-800">{tool.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-slate-500">{tool.description}</p>
                 </div>
-              )
+              );
             })}
           </div>
         </div>
       </section>
 
-      {/* ── CTA banner ──────────────────────────────────── */}
+      {/* CTA banner */}
       <section className="px-4 pb-16 sm:px-6 lg:px-10">
         <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-[linear-gradient(135deg,#1f5649_0%,#173f36_48%,#102a23_100%)] px-6 py-10 text-white sm:px-10 sm:py-14">
           <div className="flex flex-col items-center gap-6 text-center">
@@ -252,5 +247,5 @@ export default function HowItWorksPage() {
 
       <SiteFooter />
     </div>
-  )
+  );
 }

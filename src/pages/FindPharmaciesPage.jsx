@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react"
-import { Link } from "react-router-dom"
+import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   Search,
   MapPin,
@@ -11,48 +11,36 @@ import {
   SlidersHorizontal,
   ChevronDown,
   MessageCircle,
-} from "lucide-react"
-import { mockPharmacies } from "../data/mock/pharmacies.js"
-import Navbar from "../components/hero/Navbar.jsx"
-import SiteFooter from "../components/layout/SiteFooter.jsx"
+} from "lucide-react";
+import { mockPharmacies } from "../data/mock/pharmacies.js";
+import Navbar from "../components/hero/Navbar.jsx";
+import SiteFooter from "../components/layout/SiteFooter.jsx";
 
-/* ────────────────────────────────────────────────────────────
-   FindPharmaciesPage  -  public directory of MedPin pharmacies.
-
-   Features:
-   - Text search (name, area, address)
-   - State filter dropdown
-   - "Open now" toggle
-   - "Delivery available" toggle
-   - Responsive card grid (1 col mobile → 2 col md → 3 col xl)
-──────────────────────────────────────────────────────────── */
-
-const ALL_STATES = ["All states", ...new Set(mockPharmacies.map((p) => p.state))]
+const ALL_STATES = ["All states", ...new Set(mockPharmacies.map((p) => p.state))];
 
 export default function FindPharmaciesPage() {
-  const [query,        setQuery]        = useState("")
-  const [stateFilter,  setStateFilter]  = useState("All states")
-  const [openNow,      setOpenNow]      = useState(false)
-  const [deliveryOnly, setDeliveryOnly] = useState(false)
-  const [showFilters,  setShowFilters]  = useState(false)
+  const [query, setQuery] = useState("");
+  const [stateFilter, setStateFilter] = useState("All states");
+  const [openNow, setOpenNow] = useState(false);
+  const [deliveryOnly, setDeliveryOnly] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase()
+    const q = query.trim().toLowerCase();
     return mockPharmacies.filter((p) => {
       const textMatch = !q || [p.name, p.area, p.address, p.city, p.state]
-        .some((v) => v?.toLowerCase().includes(q))
-      const stateMatch = stateFilter === "All states" || p.state === stateFilter
-      const openMatch  = !openNow      || p.openNow
-      const delivMatch = !deliveryOnly || p.deliveryAvailable
-      return textMatch && stateMatch && openMatch && delivMatch
-    })
-  }, [query, stateFilter, openNow, deliveryOnly])
+        .some((v) => v?.toLowerCase().includes(q));
+      const stateMatch = stateFilter === "All states" || p.state === stateFilter;
+      const openMatch = !openNow || p.openNow;
+      const delivMatch = !deliveryOnly || p.deliveryAvailable;
+      return textMatch && stateMatch && openMatch && delivMatch;
+    });
+  }, [query, stateFilter, openNow, deliveryOnly]);
 
   return (
     <div className="min-h-screen bg-[#f8fbf8] text-slate-900">
       <Navbar />
 
-      {/* ── Hero banner ─────────────────────────────────── */}
       <section className="bg-[#1f5649] pb-10 pt-28 sm:pt-32">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
           <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
@@ -76,7 +64,7 @@ export default function FindPharmaciesPage() {
         </div>
       </section>
 
-      {/* ── Filters + results ───────────────────────────── */}
+      {/* Filters + results  */}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-10">
 
         {/* Filter bar */}
@@ -132,10 +120,10 @@ export default function FindPharmaciesPage() {
 
       <SiteFooter />
     </div>
-  )
+  );
 }
 
-/* ── Pharmacy card ──────────────────────────────────────── */
+/*  Pharmacy card */
 function PharmacyCard({ pharmacy }) {
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md">
@@ -150,11 +138,10 @@ function PharmacyCard({ pharmacy }) {
         />
         {/* Open / Closed pill */}
         <span
-          className={`absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-            pharmacy.openNow
+          className={`absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ${pharmacy.openNow
               ? "bg-emerald-500 text-white"
               : "bg-slate-700/80 text-slate-200"
-          }`}
+            }`}
         >
           <span className={`h-1.5 w-1.5 rounded-full ${pharmacy.openNow ? "bg-white/70" : "bg-slate-400"}`} />
           {pharmacy.openNow ? "Open now" : "Closed"}
@@ -244,22 +231,21 @@ function PharmacyCard({ pharmacy }) {
         </div>
       </div>
     </article>
-  )
+  );
 }
 
-/* ── Toggle chip ────────────────────────────────────────── */
+/* Toggle chip  */
 function ToggleChip({ active, onClick, children }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center gap-1.5 rounded-xl border px-3 py-2 text-xs font-medium transition ${
-        active
+      className={`inline-flex items-center gap-1.5 rounded-xl border px-3 py-2 text-xs font-medium transition ${active
           ? "border-emerald-500 bg-emerald-50 text-emerald-700"
           : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
-      }`}
+        }`}
     >
       {children}
     </button>
-  )
+  );
 }

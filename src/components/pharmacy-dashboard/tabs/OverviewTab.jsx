@@ -17,18 +17,6 @@ import {
 } from "recharts"
 import { mockDashboardMetrics } from "../../../data/mock/dashboard.js"
 
-/* ────────────────────────────────────────────────────────────
-   OverviewTab  -  main dashboard insights view.
-
-   Matches the reference image layout:
-   ┌──────────┬──────────┬──────────┐   ← 3 KPI cards
-   ├──────────────────────┬─────────┤
-   │  Line chart          │ Category│   ← chart + category bars
-   │  (searches/views)    │ bars    │
-   ├──────────────────────┴─────────┤
-   │  Most searched drugs list      │   ← bottom row
-   └────────────────────────────────┘
-──────────────────────────────────────────────────────────── */
 
 const { kpiCards, chartPoints, stockByCategory, topSearchedDrug, mostSearchedDrugs, lowStockAlerts } =
   mockDashboardMetrics
@@ -57,20 +45,20 @@ export default function OverviewTab() {
   return (
     <div className="space-y-5 p-4 sm:p-6">
 
-      {/* ── Page heading ──────────────────────────────────── */}
+      {}
       <PageHeader
         title="Dashboard"
         description={`Your pharmacy's performance snapshot - ${mockDashboardMetrics.thisWeek.searches.toLocaleString()} searches this week`}
       />
 
-      {/* ── Row 1: KPI cards ──────────────────────────────── */}
+      {}
       <div className="grid gap-4 sm:grid-cols-3">
         {kpiCards.map((card) => (
           <KpiCard key={card.id} card={card} />
         ))}
       </div>
 
-      {/* ── Row 2: Chart + right panel ────────────────────── */}
+      {}
       <div className="grid gap-4 xl:grid-cols-[1fr_320px]">
 
         {/* Line chart */}
@@ -194,7 +182,7 @@ export default function OverviewTab() {
         </div>
       </div>
 
-      {/* ── Row 3: Most searched + Low stock ──────────────── */}
+      {}
       <div className="grid gap-4 xl:grid-cols-2">
 
         {/* Most searched drugs */}
@@ -259,7 +247,6 @@ export default function OverviewTab() {
   )
 }
 
-/* ── Sub-components ───────────────────────────────────────── */
 
 /** KPI card matching the reference image style */
 function KpiCard({ card }) {

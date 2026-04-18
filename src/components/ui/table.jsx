@@ -1,10 +1,6 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/* ─────────────────────────────────────────
-   Shadcn-style Table components
-   Adapted for Tailwind v4 + medpin theme
-───────────────────────────────────────── */
 
 const Table = React.forwardRef(({ className, ...props }, ref) => (
   <div className="relative w-full overflow-auto">

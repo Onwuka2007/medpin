@@ -4,10 +4,6 @@ import PageHeader from "../PageHeader.jsx"
 import { Input } from "@/components/ui/input.jsx"
 import { mockPharmacyProfile } from "../../../data/mock/dashboard.js"
 
-/* ────────────────────────────────────────────────────────────
-   SettingsTab  -  pharmacy profile + preferences (shell only).
-   All edits are local state; no backend yet.
-──────────────────────────────────────────────────────────── */
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
@@ -63,7 +59,7 @@ export default function SettingsTab() {
       {/* Two-column layout: forms left, profile card right */}
       <div className="grid gap-6 xl:grid-cols-[1fr_280px] xl:items-start">
 
-      {/* ── Left column: all form sections ──────────────── */}
+      {}
       <div className="space-y-6">
 
       {/* Pharmacy profile */}
@@ -105,7 +101,7 @@ export default function SettingsTab() {
         </div>
       </section>
 
-      {/* ── Opening hours ────────────────────────────────── */}
+      {}
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="mb-5 flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50">
@@ -162,7 +158,7 @@ export default function SettingsTab() {
         </div>
       </section>
 
-      {/* ── Notifications ────────────────────────────────── */}
+      {}
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="mb-5 flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50">
@@ -201,7 +197,7 @@ export default function SettingsTab() {
         </div>
       </section>
 
-      {/* ── Danger zone ──────────────────────────────────── */}
+      {}
       <section className="rounded-2xl border border-rose-100 bg-white p-6 shadow-sm">
         <div className="mb-4 flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-50">
@@ -234,7 +230,7 @@ export default function SettingsTab() {
 
       </div>{/* end left column */}
 
-      {/* ── Right column: profile card ───────────────────── */}
+      {}
       <div className="sticky top-20">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
 

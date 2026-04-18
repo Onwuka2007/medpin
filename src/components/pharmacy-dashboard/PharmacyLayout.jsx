@@ -9,12 +9,6 @@ import {
 } from "lucide-react"
 import { mockPharmacyProfile } from "../../data/mock/dashboard.js"
 
-/* ────────────────────────────────────────────────────────────
-   PharmacyLayout - fixed sidebar on desktop, bottom nav on mobile.
-
-   Desktop: fixed 96px sidebar + sticky top-bar + scrollable main
-   Mobile:  no sidebar; fixed bottom tab bar; content is full-width
-──────────────────────────────────────────────────────────── */
 
 const NAV_ITEMS = [
   { icon: LayoutDashboard, label: "Dashboard", tab: "overview"  },
@@ -33,7 +27,7 @@ export default function PharmacyLayout({ children }) {
         Skip to main content
       </a>
 
-      {/* ── Desktop sidebar (hidden on mobile) ─────────── */}
+      {}
       <aside
         className="fixed left-0 top-0 z-40 hidden h-screen w-24 flex-col items-center border-r border-slate-200 bg-[#F8FAFC] py-6 lg:flex"
         aria-label="Main navigation"
@@ -88,7 +82,7 @@ export default function PharmacyLayout({ children }) {
         </div>
       </aside>
 
-      {/* ── Main area ──────────────────────────────────── */}
+      {}
       {/* Desktop: offset by sidebar. Mobile: full width, padded for bottom bar */}
       <div className="flex min-h-screen flex-col lg:ml-24">
 
@@ -124,7 +118,7 @@ export default function PharmacyLayout({ children }) {
         </main>
       </div>
 
-      {/* ── Mobile bottom nav (hidden on desktop) ───────── */}
+      {}
       <nav
         className="fixed bottom-0 left-0 right-0 z-40 flex border-t border-slate-200 bg-white lg:hidden"
         aria-label="Mobile navigation"
