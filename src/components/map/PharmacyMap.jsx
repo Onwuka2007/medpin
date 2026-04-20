@@ -18,7 +18,7 @@ function PharmacyMap({ pharmacies, center }) {
       center={center}
       zoom={13}
       scrollWheelZoom={false}
-      className="h-full w-full"
+      className="h-screen md:h-full w-full"
     >
       <TileLayer
         attribution="&copy; OpenStreetMap contributors"

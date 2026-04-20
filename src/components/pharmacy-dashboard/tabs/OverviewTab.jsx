@@ -62,13 +62,11 @@ export default function OverviewTab() {
       <div className="grid gap-4 xl:grid-cols-[1fr_320px]">
 
         {/* Line chart */}
-        {/* flex-col + h-full so the chart fills the grid row height */}
         <div className="flex flex-col h-full rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-slate-800">
               Searches by
             </h3>
-            {/* Period selector */}
             <select
               value={period}
               onChange={(e) => setPeriod(e.target.value)}
@@ -80,7 +78,6 @@ export default function OverviewTab() {
             </select>
           </div>
 
-          {/* flex-1 + min-h-0 lets recharts ResponsiveContainer expand to fill remaining space */}
           <div className="flex-1 min-h-[220px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={chartPoints} margin={{ top: 4, right: 16, left: -24, bottom: 0 }}>

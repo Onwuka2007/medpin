@@ -14,7 +14,7 @@ function HeroSection({ onOpenAssistant }) {
           className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
           style={{ backgroundImage: `url(${mapHero})` }}
         />
-        <div className="absolute inset-0 bg-[rgba(255,255,255,0.92)]" />
+        <div className="absolute inset-0 bg-[rgba(255,255,255,0.88)]" />
       </div>
 
       {heroMapPins.map((pin) => (
@@ -27,7 +27,7 @@ function HeroSection({ onOpenAssistant }) {
         <div className="mx-auto flex max-w-232 flex-col items-center pb-8 pt-12 text-center sm:pt-16 lg:pb-16 lg:pt-18">
           <CommunityBadge />
 
-          <h1 className="mt-5 max-w-[850px] w-full text-[2.3rem] font-semibold md:leading-[1.06] tracking-[-0.05em] text-[#1f5649] sm:text-[3.75rem] lg:text-[4.75rem]">
+          <h1 className="mt-5 max-w-[850px] w-full text-[2rem] font-semibold md:leading-[1.06] tracking-[-0.05em] text-[#1f5649] sm:text-[3.75rem] lg:text-[4.75rem]">
             {heroContent.title}.
           </h1>
 

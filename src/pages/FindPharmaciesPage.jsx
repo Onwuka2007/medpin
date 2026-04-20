@@ -13,7 +13,6 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { mockPharmacies } from "../data/mock/pharmacies.js";
-import Navbar from "../components/hero/Navbar.jsx";
 import SiteFooter from "../components/layout/SiteFooter.jsx";
 
 const ALL_STATES = ["All states", ...new Set(mockPharmacies.map((p) => p.state))];
@@ -39,8 +38,6 @@ export default function FindPharmaciesPage() {
 
   return (
     <div className="min-h-screen bg-[#f8fbf8] text-slate-900">
-      <Navbar />
-
       <section className="bg-[#1f5649] pb-10 pt-28 sm:pt-32">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
           <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">

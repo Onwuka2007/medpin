@@ -36,11 +36,9 @@ export default function DrugListTab({ inventoryKeys = new Set(), onAddToInventor
   const filteredDrugs = useMemo(() => {
     const q = searchQuery.trim().toLowerCase()
     return mockDrugs.filter((drug) => {
-      // Text search across name, generic, brand names, synonyms
       const textMatch = !q || [drug.name, drug.genericName, ...(drug.brandNames ?? []), ...(drug.synonyms ?? [])]
         .some((v) => v?.toLowerCase().includes(q))
 
-      // Category filter
       const catMatch = categoryFilter === "All" || drug.category === categoryFilter
 
       // Rx filter
@@ -54,7 +52,6 @@ export default function DrugListTab({ inventoryKeys = new Set(), onAddToInventor
   }, [searchQuery, categoryFilter, rxFilter])
 
   const handleRowClick = (drug) => {
-    // Prevent re-opening for already-added drugs
     if (inventoryKeys.has(drug.id)) return
     setSelectedDrug(drug)
     setModalOpen(true)
@@ -124,7 +121,7 @@ export default function DrugListTab({ inventoryKeys = new Set(), onAddToInventor
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow className="bg-slate-50 hover:bg-slate-50">
+            <TableRow className="bg-slate-50 hover:bg-slate-50 sticky top-0">
               <TableHead>Drug name</TableHead>
               <TableHead className="hidden sm:table-cell">Generic</TableHead>
               <TableHead className="hidden md:table-cell">Category</TableHead>
@@ -172,7 +169,7 @@ export default function DrugListTab({ inventoryKeys = new Set(), onAddToInventor
                     <TableCell className="hidden lg:table-cell text-slate-600">{drug.form}</TableCell>
                     <TableCell className="hidden lg:table-cell text-slate-600">{drug.strength}</TableCell>
 
-                    {/* Rx badge */}
+                    {/* Rx (Prescription) and OTC (Over-the-Counter) */}
                     <TableCell>
                       {drug.requiresPrescription
                         ? <Badge variant="warning">Rx</Badge>
@@ -192,7 +189,7 @@ export default function DrugListTab({ inventoryKeys = new Set(), onAddToInventor
                           className="rounded-full border border-emerald-500 px-3 py-1 text-xs font-semibold text-emerald-600 transition hover:bg-emerald-500 hover:text-white"
                           onClick={(e) => { e.stopPropagation(); handleRowClick(drug) }}
                         >
-                          Add
+                          <span className="text-[12px]">Add to Inventory</span>
                         </button>
                       )}
                     </TableCell>

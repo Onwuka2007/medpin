@@ -19,21 +19,21 @@ export const heroFloatingCards = [
     title: "Nearby stock found",
     text: "Paracetamol is available at 4 pharmacies around Yaba.",
     className:
-      "left-0 top-[10rem] hidden max-w-[15rem] xl:block",
+      "left-0 top-[10rem] hidden max-w-[15rem] md:block",
   },
   {
     id: "hero-card-2",
     title: "Fastest option",
     text: "HealthPlus Pharmacy is 6 mins away and open now.",
     className:
-      "right-2 top-[14rem] hidden max-w-[15rem] xl:block",
+      "right-2 top-[14rem] hidden max-w-[15rem] md:block",
   },
   {
     id: "hero-card-3",
     title: "Alternative available",
     text: "A similar salbutamol inhaler is available if Ventolin is unavailable.",
     className:
-      "left-[6%] bottom-[8rem] hidden max-w-[16rem] xl:block",
+      "left-[6%] bottom-[8rem] hidden max-w-[16rem] md:block",
   },
   {
     id: "hero-card-4",

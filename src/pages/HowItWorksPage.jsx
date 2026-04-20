@@ -14,7 +14,6 @@ import {
   Truck,
   Star,
 } from "lucide-react";
-import Navbar from "../components/hero/Navbar.jsx";
 import SiteFooter from "../components/layout/SiteFooter.jsx";
 import { Button } from "../components/ui/button.jsx";
 
@@ -102,8 +101,6 @@ const ASSISTANT_TOOLS = [
 export default function HowItWorksPage() {
   return (
     <div className="min-h-screen bg-[#f8fbf8] text-slate-900">
-      <Navbar />
-
       {/* Hero */}
       <section className="bg-[#1f5649] pb-20 pt-32 sm:pt-36">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
@@ -143,7 +140,7 @@ export default function HowItWorksPage() {
                   <Icon size={24} className="text-emerald-600" />
                 </div>
 
-                <p className="mt-4 text-4xl font-black tracking-tight text-slate-100">{step.number}</p>
+                <p className="mt-4 text-4xl font-black tracking-tight text-slate-300">{step.number}</p>
                 <h3 className="mt-1 text-lg font-semibold text-slate-800">{step.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-500">{step.description}</p>
                 <p className="mt-3 text-xs text-emerald-600">{step.detail}</p>

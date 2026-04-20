@@ -105,7 +105,7 @@ export const mockPharmacies = [
     address: 'Mobolaji Bank Anthony Way, Maryland, Lagos',
     landmark: 'Beside Maryland Mall',
     locationSummary: 'Beside Maryland Mall',
-    coordinates: { lat: 6.5689, lng: 3.3674 },
+    coordinates: { lat: 6.6419973, lng: 3.3288193 },
     phone: '+234 805 332 7741',
     whatsapp: '+234 805 332 7741',
     email: 'maryland@alphapharmacy.mock',

@@ -45,7 +45,7 @@ function PopularNeedsSection() {
           <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#7a938a]">
             Stop Searching, Start Finding
           </p>
-          <h2 className="mt-3 text-[2rem] font-semibold tracking-[-0.05em] text-[#173f36] sm:text-[2.7rem]">
+          <h2 className="mt-3 text-[1.5rem] font-semibold tracking-[-0.05em] text-[#173f36] sm:text-[2.7rem]">
             We've simplified the medication search for thousands of Nigerians.
           </h2>
         </div>
@@ -57,9 +57,9 @@ function PopularNeedsSection() {
             return (
               <article
                 key={item.id}
-                className="group rounded-[1.25rem] border border-[#dbe7e0] bg-white px-6 py-6 shadow-[0_14px_34px_rgba(31,86,73,0.06)] transition hover:border-[#c9ddd4] hover:shadow-[0_18px_38px_rgba(31,86,73,0.08)]"
+                className="group rounded-[1.25rem] border border-[#dbe7e0] bg-white p-6 shadow-[0_14px_34px_rgba(31,86,73,0.06)] transition hover:border-[#c9ddd4] hover:shadow-[0_18px_38px_rgba(31,86,73,0.08)]"
               >
-                <div className="flex items-start gap-5">
+                <div className="flex flex-col sm:flex-row items-start gap-5">
                   <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#eef6f1] text-[#1f5649] transition group-hover:bg-[#1f5649] group-hover:text-white">
                     <Icon aria-hidden="true" className="h-6 w-6" strokeWidth={2.1} />
                   </div>

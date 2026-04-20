@@ -5,7 +5,7 @@ export const mockPharmacyProfile = {
   name: 'Alpha Pharmacy',
   location: 'Mainland, Lagos',
   initials: 'AP',
-}
+};
 
 export const mockDashboardMetrics = {
   pharmacyId: 'pharm-alpha-mainland',
@@ -85,12 +85,12 @@ export const mockDashboardMetrics = {
 
   /* Stock breakdown by drug category (right-panel bars) */
   stockByCategory: [
-    { category: 'Pain Relief',          count: 14, percentage: 82 },
-    { category: 'Antimalarials',        count: 8,  percentage: 65 },
-    { category: 'Antibiotics',          count: 6,  percentage: 54 },
-    { category: 'Respiratory',          count: 5,  percentage: 43 },
-    { category: 'Women\'s Health',      count: 4,  percentage: 35 },
-    { category: 'Hydration & Vitamins', count: 3,  percentage: 22 },
+    { category: 'Pain Relief', count: 14, percentage: 82 },
+    { category: 'Antimalarials', count: 8, percentage: 65 },
+    { category: 'Antibiotics', count: 6, percentage: 54 },
+    { category: 'Respiratory', count: 5, percentage: 43 },
+    { category: 'Women\'s Health', count: 4, percentage: 35 },
+    { category: 'Hydration & Vitamins', count: 3, percentage: 22 },
   ],
 
   /* Top searched drug - donut/ring panel */
@@ -104,17 +104,17 @@ export const mockDashboardMetrics = {
 
   /* Most searched drugs list */
   mostSearchedDrugs: [
-    { drugId: 'drug-paracetamol-500-tablet', label: 'Paracetamol',   searches: 1840, trend: 'up',   delta: '+12%' },
-    { drugId: 'drug-amatem-softgel',         label: 'Amatem',        searches: 960,  trend: 'up',   delta: '+8%'  },
-    { drugId: 'drug-amoxicillin-500-capsule',label: 'Amoxicillin',   searches: 720,  trend: 'flat', delta: '0%'   },
-    { drugId: 'drug-ventolin-inhaler',        label: 'Ventolin',      searches: 540,  trend: 'up',   delta: '+5%'  },
-    { drugId: 'drug-ibuprofen-200-capsule',  label: 'Ibuprofen',     searches: 410,  trend: 'down', delta: '-3%'  },
+    { drugId: 'drug-paracetamol-500-tablet', label: 'Paracetamol', searches: 1840, trend: 'up', delta: '+12%' },
+    { drugId: 'drug-amatem-softgel', label: 'Amatem', searches: 960, trend: 'up', delta: '+8%' },
+    { drugId: 'drug-amoxicillin-500-capsule', label: 'Amoxicillin', searches: 720, trend: 'flat', delta: '0%' },
+    { drugId: 'drug-ventolin-inhaler', label: 'Ventolin', searches: 540, trend: 'up', delta: '+5%' },
+    { drugId: 'drug-ibuprofen-200-capsule', label: 'Ibuprofen', searches: 410, trend: 'down', delta: '-3%' },
   ],
 
   /* Low stock alerts */
   lowStockAlerts: [
-    { drugId: 'drug-ventolin-inhaler',   label: 'Ventolin',   currentQuantity: 4,  recommendedRestockLevel: 18 },
-    { drugId: 'drug-postinor-2-tablet',  label: 'Postinor-2', currentQuantity: 2,  recommendedRestockLevel: 12 },
-    { drugId: 'drug-amatem-softgel',     label: 'Amatem',     currentQuantity: 3,  recommendedRestockLevel: 20 },
+    { drugId: 'drug-ventolin-inhaler', label: 'Ventolin', currentQuantity: 4, recommendedRestockLevel: 18 },
+    { drugId: 'drug-postinor-2-tablet', label: 'Postinor-2', currentQuantity: 2, recommendedRestockLevel: 12 },
+    { drugId: 'drug-amatem-softgel', label: 'Amatem', currentQuantity: 3, recommendedRestockLevel: 20 },
   ],
-}
+};

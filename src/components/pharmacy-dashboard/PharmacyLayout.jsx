@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Pill,
@@ -6,20 +6,20 @@ import {
   Settings,
   Search,
   Bell,
-} from "lucide-react"
-import { mockPharmacyProfile } from "../../data/mock/dashboard.js"
+} from "lucide-react";
+import { mockPharmacyProfile } from "../../data/mock/dashboard.js";
 
 
 const NAV_ITEMS = [
-  { icon: LayoutDashboard, label: "Dashboard", tab: "overview"  },
-  { icon: Pill,            label: "Drug List",  tab: "drugs"     },
-  { icon: Package,         label: "My Stock",   tab: "inventory" },
-]
+  { icon: LayoutDashboard, label: "Dashboard", tab: "overview" },
+  { icon: Pill, label: "Drug List", tab: "drugs" },
+  { icon: Package, label: "My Stock", tab: "inventory" },
+];
 
 export default function PharmacyLayout({ children }) {
-  const location     = useLocation()
-  const searchParams = new URLSearchParams(location.search)
-  const activeTab    = searchParams.get("tab") || "overview"
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const activeTab = searchParams.get("tab") || "overview";
 
   return (
     <div className="min-h-screen bg-[#f4f9f6] text-slate-900">
@@ -27,7 +27,7 @@ export default function PharmacyLayout({ children }) {
         Skip to main content
       </a>
 
-      {}
+      { }
       <aside
         className="fixed left-0 top-0 z-40 hidden h-screen w-24 flex-col items-center border-r border-slate-200 bg-[#F8FAFC] py-6 lg:flex"
         aria-label="Main navigation"
@@ -40,15 +40,14 @@ export default function PharmacyLayout({ children }) {
         {/* Main nav */}
         <nav className="flex flex-1 flex-col items-center gap-1 w-full">
           {NAV_ITEMS.map(({ icon: Icon, label, tab }) => {
-            const isActive = activeTab === tab
+            const isActive = activeTab === tab;
             return (
               <NavLink
                 key={tab}
                 to={`/pharmacy/dashboard?tab=${tab}`}
                 title={label}
-                className={`group relative flex w-full flex-col items-center gap-1.5 rounded-xl px-2 py-3.5 transition-colors duration-150 ${
-                  isActive ? "" : "hover:bg-slate-100"
-                }`}
+                className={`group relative flex w-full flex-col items-center gap-1.5 rounded-xl px-2 py-3.5 transition-colors duration-150 ${isActive ? "" : "hover:bg-slate-100"
+                  }`}
               >
                 {isActive && (
                   <span className="absolute right-0 top-1/2 -translate-y-1/2 h-8 w-[4px] rounded-l-full bg-emerald-500" />
@@ -58,7 +57,7 @@ export default function PharmacyLayout({ children }) {
                   {label}
                 </span>
               </NavLink>
-            )
+            );
           })}
         </nav>
 
@@ -67,9 +66,8 @@ export default function PharmacyLayout({ children }) {
           <NavLink
             to="/pharmacy/dashboard?tab=settings"
             title="Settings"
-            className={`group relative flex w-full flex-col items-center gap-1.5 rounded-xl px-2 py-3.5 transition-colors duration-150 ${
-              activeTab === "settings" ? "" : "hover:bg-slate-100"
-            }`}
+            className={`group relative flex w-full flex-col items-center gap-1.5 rounded-xl px-2 py-3.5 transition-colors duration-150 ${activeTab === "settings" ? "" : "hover:bg-slate-100"
+              }`}
           >
             {activeTab === "settings" && (
               <span className="absolute right-0 top-1/2 -translate-y-1/2 h-8 w-[4px] rounded-l-full bg-emerald-500" />
@@ -82,8 +80,7 @@ export default function PharmacyLayout({ children }) {
         </div>
       </aside>
 
-      {}
-      {/* Desktop: offset by sidebar. Mobile: full width, padded for bottom bar */}
+      { }
       <div className="flex min-h-screen flex-col lg:ml-24">
 
         {/* Top header */}
@@ -112,20 +109,19 @@ export default function PharmacyLayout({ children }) {
           </div>
         </header>
 
-        {/* Page content - extra bottom padding on mobile for the tab bar */}
         <main id="main-content" className="flex-1 overflow-auto pb-20 focus:outline-none lg:pb-0">
           {children}
         </main>
       </div>
 
-      {}
+      { }
       <nav
         className="fixed bottom-0 left-0 right-0 z-40 flex border-t border-slate-200 bg-white lg:hidden"
         aria-label="Mobile navigation"
       >
         {[...NAV_ITEMS, { icon: Settings, label: "Settings", tab: "settings" }].map(
           ({ icon: Icon, label, tab }) => {
-            const isActive = activeTab === tab
+            const isActive = activeTab === tab;
             return (
               <NavLink
                 key={tab}
@@ -137,10 +133,10 @@ export default function PharmacyLayout({ children }) {
                   {label}
                 </span>
               </NavLink>
-            )
+            );
           }
         )}
       </nav>
     </div>
-  )
+  );
 }
