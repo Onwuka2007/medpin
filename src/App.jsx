@@ -17,14 +17,14 @@ export default function App() {
       {/* w/o navbar */}
       <Route path="/" element={<HomePage />} />
       <Route path="/search" element={<SearchPage />} />
+      <Route path="/pharmacy/register" element={<PharmacyRegisterPage />} />
+      <Route path="/partners" element={<PharmacyRegisterPage />} />
+      <Route path="/pharmacy/login" element={<PharmacyLoginPage />} />
 
       {/* with navbar */}
       <Route element={<PublicLayout />}>
         <Route path="/pharmacies" element={<FindPharmaciesPage />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
-        <Route path="/pharmacy/login" element={<PharmacyLoginPage />} />
-        <Route path="/pharmacy/register" element={<PharmacyRegisterPage />} />
-        <Route path="/partners" element={<PharmacyRegisterPage />} />
       </Route>
 
       <Route
