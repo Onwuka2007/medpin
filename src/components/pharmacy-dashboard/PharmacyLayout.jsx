@@ -33,8 +33,8 @@ export default function PharmacyLayout({ children }) {
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <div className="mb-10 flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500">
-          <span className="text-sm font-black tracking-tight text-white">M</span>
+        <div className="mb-10 flex h-10 w-10 items-center justify-center">
+          <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
         </div>
 
         {/* Main nav */}
