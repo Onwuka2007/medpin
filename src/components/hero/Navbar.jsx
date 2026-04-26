@@ -41,9 +41,9 @@ function Navbar() {
 
         {/* Mobile: search button + hamburger */}
         <div className="flex items-center gap-2 lg:hidden">
-          <Button asChild className="h-10 px-3.5 text-[11px] font-medium sm:px-4 sm:text-xs">
+          {/* <Button asChild className="h-10 px-3.5 text-[11px] font-medium sm:px-4 sm:text-xs">
             <Link to="/">Search</Link>
-          </Button>
+          </Button> */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen((current) => !current)}

@@ -10,7 +10,6 @@ import PharmacyRegisterPage from "./pages/PharmacyRegisterPage.jsx";
 import PublicLayout from "./components/layout/PublicLayout.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
-
 export default function App() {
   return (
     <Routes>
