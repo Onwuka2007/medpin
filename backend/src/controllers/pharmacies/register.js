@@ -17,25 +17,7 @@ export const register = async (req, res) => {
             superintendentName,
             superintendentPcn,
             nafdacNo,
-        } = req.body;
-
-        // Validate required fields
-        const requiredFields = {
-            email, password, pharmacyName, phone,
-            address, state, pcnLicenseNo, cacRegNo,
-            superintendentName, superintendentPcn,
-        };
-
-        // Send error if fields are missing
-        const missing = Object.entries(requiredFields).filter(([_, v]) => !v).map(([k]) => k);
-
-        if (missing.length) {
-            return res.status(httpStatus.BAD_REQUEST).json({
-                statusCode: httpStatus.BAD_REQUEST,
-                success: false,
-                message: `Missing required fields: ${missing.join(", ")}`,
-            });
-        }
+        } = req.validatedBody;
 
         // Check for duplicates across unique fields in one query
         const existing = await Pharmacy.findOne({
@@ -44,8 +26,8 @@ export const register = async (req, res) => {
 
         if (existing) {
             let field = "email";
-            if (existing.phone === phone) field = "phone number"
-            else if (existing.pcnLicenseNo === pcnLicenseNo) field = "PCN license number"
+            if (existing.phone === phone) field = "phone number";
+            else if (existing.pcnLicenseNo === pcnLicenseNo) field = "PCN license number";
             else if (existing.cacRegNo === cacRegNo) field = "CAC registration number";
 
             return res.status(httpStatus.CONFLICT).json({
@@ -55,8 +37,9 @@ export const register = async (req, res) => {
             });
         }
 
-        // hash password
-        const hashedPassword = await bcrypt.hash(password, 12);
+        // Hash the password before saving to the database
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         // create pharmacy user
         const pharmacy = await Pharmacy.create({
@@ -71,7 +54,9 @@ export const register = async (req, res) => {
             cacRegNo,
             superintendentName,
             superintendentPcn,
-            ...(nafdacNo && { nafdacNo }),
+            verificationStatus: "pending",
+            rejectionReason: null,
+            ...(nafdacNo ? { nafdacNo } : {}),
         });
 
         return res.status(httpStatus.CREATED).json({
@@ -83,11 +68,19 @@ export const register = async (req, res) => {
                 pharmacyName: pharmacy.pharmacyName,
                 email: pharmacy.email,
                 isVerified: pharmacy.isVerified,
+                verificationStatus: pharmacy.verificationStatus,
             },
         });
 
     } catch (error) {
-        console.error("registerPharmacy error:", error);
+        if (error?.code === 11000) {
+            return res.status(httpStatus.CONFLICT).json({
+                statusCode: httpStatus.CONFLICT,
+                success: false,
+                message: "A pharmacy with one of the supplied unique fields already exists.",
+            });
+        }
+
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
             statusCode: httpStatus.INTERNAL_SERVER_ERROR,
             success: false,

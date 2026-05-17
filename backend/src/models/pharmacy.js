@@ -42,13 +42,19 @@ const pharmacySchema = new mongoose.Schema(
         // Status
         isOpen: { type: Boolean, default: true },
         isVerified: { type: Boolean, default: false },
+        verificationStatus: {
+            type: String,
+            enum: ["pending", "approved", "rejected"],
+            default: "pending",
+        },
+        rejectionReason: { type: String, default: null },
         verifiedAt: { type: Date },
         isOnline: { type: Boolean, default: false },
         isDelivery: { type: Boolean, default: false },
         lastSeenActiveAt: { type: Date },
 
         // Role & metrics
-        role: { type: String, enum: ["PHARMACY"], default: "PHARMACY" },
+        role: { type: String, enum: ["PHARMACY", "ADMIN"], default: "PHARMACY" },
         rating: { type: Number, default: 0 },
         numReviews: { type: Number, default: 0 },
     },
