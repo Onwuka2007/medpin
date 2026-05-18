@@ -14,7 +14,7 @@ export const getPharmacyById = async (req, res) => {
             });
         }
 
-        const pharmacy = await Pharmacy.findById(id, { password: 0 });
+        const pharmacy = await Pharmacy.findOne({ _id: id, role: "PHARMACY" }, { password: 0 });
 
         if (!pharmacy) {
             return res.status(httpStatus.NOT_FOUND).json({

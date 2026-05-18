@@ -6,7 +6,10 @@ import HowItWorksPage from "./pages/HowItWorksPage.jsx";
 import PharmacyLayout from "./components/pharmacy-dashboard/PharmacyLayout.jsx";
 import PharmacyDashboardPage from "./pages/PharmacyDashboardPage.jsx";
 import PharmacyLoginPage from "./pages/PharmacyLoginPage.jsx";
+import PharmacyPendingPage from "./pages/PharmacyPendingPage.jsx";
+import PharmacyRejectedPage from "./pages/PharmacyRejectedPage.jsx";
 import PharmacyRegisterPage from "./pages/PharmacyRegisterPage.jsx";
+import AdminDashboardPage from "./pages/AdminDashboardPage.jsx";
 import PublicLayout from "./components/layout/PublicLayout.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
@@ -19,6 +22,10 @@ export default function App() {
       <Route path="/pharmacy/register" element={<PharmacyRegisterPage />} />
       <Route path="/partners" element={<PharmacyRegisterPage />} />
       <Route path="/pharmacy/login" element={<PharmacyLoginPage />} />
+      <Route path="/pharmacy/pending" element={<PharmacyPendingPage />} />
+      <Route path="/pharmacy/rejected" element={<PharmacyRejectedPage />} />
+      <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+      <Route path="/admin/pharmacies/pending" element={<AdminDashboardPage />} />
 
       {/* with navbar */}
       <Route element={<PublicLayout />}>

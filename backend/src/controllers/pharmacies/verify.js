@@ -14,8 +14,8 @@ export const verifyPharmacy = async (req, res) => {
             });
         }
 
-        const pharmacy = await Pharmacy.findByIdAndUpdate(
-            id,
+        const pharmacy = await Pharmacy.findOneAndUpdate(
+            { _id: id, role: "PHARMACY" },
             {
                 isVerified: true,
                 verificationStatus: "approved",

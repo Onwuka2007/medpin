@@ -31,7 +31,7 @@ export const listPharmacies = async (req, res) => {
             });
         }
 
-        const filter = {};
+        const filter = { role: "PHARMACY" };
         if (status === "approved") {
             filter.$or = [
                 { verificationStatus: "approved" },

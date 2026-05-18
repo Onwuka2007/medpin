@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, ArrowRight, ArrowLeft, Check, ShieldCheck, Upload } from "lucide-react";
 import { Input } from "@/components/ui/input.jsx";
+import { apiRequest } from "../lib/api";
 
 const STEPS = [
   { id: 1, label: "Account" },
@@ -22,8 +23,9 @@ export default function PharmacyRegisterPage() {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [showPass, setShowPass] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  /* Form state */
   const [form, setForm] = useState({
     /* Step 1 */
     email: "",
@@ -49,15 +51,49 @@ export default function PharmacyRegisterPage() {
   const next = () => setStep((s) => Math.min(s + 1, 4));
   const back = () => setStep((s) => Math.max(s - 1, 1));
 
-  const handleSubmit = () => {
-    /* Shell only - just show success state */
-    setSubmitted(true);
+  // submit handler
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError("");
+
+    try {
+      await apiRequest("/pharmacy/register", {
+        method: "POST",
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+          pharmacyName: form.pharmacyName,
+          phone: form.phone,
+          address: form.address,
+          city: form.city,
+          state: form.state,
+          pcnLicenseNo: form.pcnLicenseNo,
+          cacRegNo: form.cacRegNo,
+          superintendentName: form.superintendentName,
+          superintendentPcn: form.superintendentPcn,
+          nafdacNo: form.nafdacNo,
+        }
+        ),
+      });
+      setSubmitted(true);
+
+
+    } catch (err) {
+      const errorMessage = Array.isArray(err?.errors)
+        ? err.errors.join(" ")
+        : err?.message || "Registration failed. Please try again.";
+
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) return <SuccessScreen pharmacyName={form.pharmacyName} />;
 
   return (
     <div className="flex min-h-screen">
+      
 
       {/* Left*/}
       <div className="hidden lg:flex lg:w-[38%] flex-col justify-between bg-[#1f5649] p-12 text-white">
@@ -124,7 +160,7 @@ export default function PharmacyRegisterPage() {
 
         <div className="w-full max-w-md">
 
-          {}
+          { }
           {step === 1 && (
             <StepShell
               title="Create your account"
@@ -143,7 +179,7 @@ export default function PharmacyRegisterPage() {
                     value={form.password} onChange={(e) => update("password", e.target.value)}
                     className="pr-10" required />
                   <button type="button" onClick={() => setShowPass(!showPass)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                    className="absolute right-3 top-1/2 cursor-pointer -translate-y-1/2 text-slate-400 hover:text-slate-600">
                     {showPass ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
                 </div>
@@ -293,6 +329,13 @@ export default function PharmacyRegisterPage() {
                   <span className="font-semibold text-emerald-600">Privacy Policy</span>.
                 </span>
               </label>
+
+              {/* Error Message */}
+              {error && (
+                <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                  {error}
+                </p>
+              )}
             </StepShell>
           )}
 

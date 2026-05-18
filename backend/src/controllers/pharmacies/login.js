@@ -55,7 +55,15 @@ export const login = async (req, res) => {
             statusCode: httpStatus.OK,
             success: true,
             message: "Login successful",
-            data: { accessToken },
+            data: {
+                accessToken,
+                user: {
+                    id: user._id,
+                    email: user.email,
+                    role: user.role,
+                    verificationStatus: effectiveVerificationStatus,
+                },
+            },
         });
 
     } catch (error) {

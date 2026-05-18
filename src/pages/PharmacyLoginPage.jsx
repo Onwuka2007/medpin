@@ -1,26 +1,69 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import { Eye, EyeOff, ArrowRight, ShieldCheck } from "lucide-react"
-import { Input } from "@/components/ui/input.jsx"
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Eye, EyeOff, ArrowRight, ShieldCheck } from "lucide-react";
+import { Input } from "@/components/ui/input.jsx";
+import { apiRequest } from "../lib/api.js";
+import { useNavigate } from "react-router-dom";
+import { setPharmacyToken } from "../lib/auth";
 
 export default function PharmacyLoginPage() {
-  const [email,       setEmail]       = useState("")
-  const [password,    setPassword]    = useState("")
-  const [showPass,    setShowPass]    = useState(false)
-  const [loading,     setLoading]     = useState(false)
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setLoading(true)
-    /* Simulate network delay then redirect to dashboard */
-    setTimeout(() => window.location.href = "/pharmacy/dashboard", 1200)
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      const data = await apiRequest("/pharmacy/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      setPharmacyToken(data.data.accessToken);
+      if (data.data.user?.role === "ADMIN") {
+        navigate("/admin/dashboard");
+        return;
+      }
+
+      navigate("/pharmacy/dashboard");
+    } catch (err) {
+      if (err?.message === "Your pharmacy account is still under review.") {
+        navigate("/pharmacy/pending");
+        return;
+      }
+
+      if (err?.message === "Your pharmacy application was rejected.") {
+        navigate("/pharmacy/rejected", {
+          state: { rejectionReason: err?.rejectionReason || "" },
+        });
+        return;
+      }
+
+      const errorMessage =
+        err?.rejectionReason
+          ? `${err.message} ${err.rejectionReason}`
+          : err?.message || "Login failed. Please try again.";
+
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   return (
     <div className="flex min-h-screen">
 
-      {}
+      { }
       <div className="hidden lg:flex lg:w-[42%] flex-col justify-between bg-[#1f5649] p-12 text-white">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
@@ -60,7 +103,7 @@ export default function PharmacyLoginPage() {
         </p>
       </div>
 
-      {}
+      { }
       <div className="flex flex-1 flex-col items-center justify-center bg-[#f4f9f6] px-6 py-12">
 
         {/* Mobile logo */}
@@ -111,13 +154,21 @@ export default function PharmacyLoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPass(!showPass)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  className="absolute right-3 top-1/2 cursor-pointer -translate-y-1/2 text-slate-400 hover:text-slate-600"
                 >
                   {showPass ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>
               </div>
             </div>
 
+            {/* error message */}
+            {error && (
+              <div className="p-3 bg-red-50 text-red-600 rounded text-sm">
+                {error}
+              </div>
+            )}
+
+            {/* submit */}
             <button
               type="submit"
               disabled={loading}
@@ -140,5 +191,5 @@ export default function PharmacyLoginPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
