@@ -1,5 +1,29 @@
+# Dependencies
+node_modules/
+dist/
+dist-ssr/
+
+# Environment files & secrets (NEVER commit these)
+.env
+.env.*
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+!.env.example
+
+# Private keys, certificates, credentials
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*.keystore
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,20 +31,23 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Test coverage
+coverage/
+*.lcov
 
-# Editor directories and files
+# IDEs, editors & OS files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.bak
 
-.env
+# Tooling cache
+.kilo/
+.eslintcache

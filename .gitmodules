@@ -1,0 +1,3 @@
+[submodule "nafdac-api"]
+	path = nafdac-api
+	url = https://github.com/Onwuka2007/nafdac-api.git

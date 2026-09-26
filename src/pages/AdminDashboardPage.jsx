@@ -150,7 +150,7 @@ export default function AdminDashboardPage() {
         />
 
         <div className="mb-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {FILTERS.map(({ key, label, tone, icon: Icon }) => (
+          {FILTERS.map(({ key, label, tone }) => (
             <button
               key={key}
               type="button"
